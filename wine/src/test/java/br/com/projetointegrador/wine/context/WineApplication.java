@@ -1,4 +1,4 @@
-package br.com.projetointegrador.wine;
+package br.com.projetointegrador.wine.context;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

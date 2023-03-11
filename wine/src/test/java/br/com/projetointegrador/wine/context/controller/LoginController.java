@@ -1,4 +1,4 @@
-package br.com.projetointegrador.wine.controller;
+package br.com.projetointegrador.wine.context.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

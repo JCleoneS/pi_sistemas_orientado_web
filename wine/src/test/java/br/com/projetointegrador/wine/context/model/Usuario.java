@@ -1,7 +1,6 @@
-package br.com.projetointegrador.wine.model;
-
+package br.com.projetointegrador.wine.context.model;
 import jakarta.persistence.*;
-import org.springframework.data.annotation.Id;
+
 
 @Entity
 public class Usuario {
@@ -17,8 +16,10 @@ public class Usuario {
     private String email;
     @Column(nullable = false)
     private String senha;
+    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private Grupo cargo;
+    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private Situacao situacao;
 

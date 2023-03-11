@@ -1,4 +1,4 @@
-package br.com.projetointegrador.wine.utils;
+package br.com.projetointegrador.wine.context.utils;
 
 import java.util.Base64;
 
