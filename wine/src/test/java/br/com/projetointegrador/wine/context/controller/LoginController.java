@@ -3,6 +3,7 @@ package br.com.projetointegrador.wine.context.controller;
 import br.com.projetointegrador.wine.context.model.Usuario;
 import br.com.projetointegrador.wine.context.model.LoginUsuarioDTO;
 import br.com.projetointegrador.wine.context.repository.UsuarioRepository;
+import br.com.projetointegrador.wine.context.utils.CriptografiaUtils;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -30,10 +31,20 @@ public class LoginController {
             System.out.println("Tem erros!");
             return new ModelAndView("redirect:/areaAdministrativa/login");
         }
-        Usuario usuario = loginUsuarioDTO.toUsuario();
-        List<Usuario> usuarioBanco = this.usuarioRepository.findAll();
+        Usuario usuarioRequisicao = loginUsuarioDTO.toUsuario();
+        String email = usuarioRequisicao.getEmail();
+        String senha = CriptografiaUtils.criptografar(usuarioRequisicao.getSenha());
 
-        return null;
+        List<Usuario> usuarioBanco = this.usuarioRepository.findAll();
+        for (Usuario usuario: usuarioBanco) {
+            if (email.equals(usuarioRequisicao.getEmail())){
+                String senhaBanco = usuario.getSenha();
+                if(senhaBanco.equals(senha)){
+                    return new ModelAndView("/areaAdministrativa/home");
+                }
+            }
+        }
+        return new ModelAndView("redirect:/loginAdministrativo");
     }
 
 
