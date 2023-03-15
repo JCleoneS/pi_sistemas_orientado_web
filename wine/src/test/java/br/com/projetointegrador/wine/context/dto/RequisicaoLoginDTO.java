@@ -1,14 +1,22 @@
-package br.com.projetointegrador.wine.context.model;
+package br.com.projetointegrador.wine.context.dto;
+import br.com.projetointegrador.wine.context.model.Usuario;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
-public class LoginUsuarioDTO {
-
+public class RequisicaoLoginDTO {
+    @NotNull
+    @NotBlank
+    @Email
     @Column(nullable = false, unique = true)
     private String email;
+    @NotNull
+    @NotBlank
     @Column(nullable = false)
     private String senha;
 
-    public LoginUsuarioDTO() { }
+    public RequisicaoLoginDTO() { }
 
     public String getEmail() {
         return email;

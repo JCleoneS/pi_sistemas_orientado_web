@@ -1,15 +1,19 @@
-package br.com.projetointegrador.wine.context.model;
+package br.com.projetointegrador.wine.context.dto;
+import br.com.projetointegrador.wine.context.model.Grupo;
+import br.com.projetointegrador.wine.context.model.Situacao;
+import br.com.projetointegrador.wine.context.model.Usuario;
 import jakarta.persistence.*;
-
+import jakarta.validation.constraints.NotNull;
 
 @Entity
-public class Usuario {
+public class RequisicaoNovoUsuarioDTO {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(nullable = false)
     private String nome;
+    @NotNull
     @Column(nullable = false, unique = true)
     private String cpf;
     @Column(nullable = false, unique = true)
@@ -23,7 +27,7 @@ public class Usuario {
     @Enumerated(EnumType.STRING)
     private Situacao situacao;
 
-    public Usuario() { }
+    public RequisicaoNovoUsuarioDTO() { }
 
     public Long getId() {
         return id;
@@ -79,5 +83,16 @@ public class Usuario {
 
     public void setSituacao(Situacao situacao) {
         this.situacao = situacao;
+    }
+
+    public Usuario toUsuario(){
+        Usuario usuario = new Usuario();
+        usuario.setNome(this.nome);
+        usuario.setCpf(this.cpf);
+        usuario.setEmail(this.email);
+        usuario.setSenha(this.senha);
+        usuario.setSituacao(this.situacao);
+        usuario.setGrupo(this.grupo);
+        return usuario;
     }
 }

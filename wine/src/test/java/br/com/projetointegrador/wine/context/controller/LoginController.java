@@ -1,7 +1,7 @@
 package br.com.projetointegrador.wine.context.controller;
 
 import br.com.projetointegrador.wine.context.model.Usuario;
-import br.com.projetointegrador.wine.context.model.LoginUsuarioDTO;
+import br.com.projetointegrador.wine.context.dto.RequisicaoLoginDTO;
 import br.com.projetointegrador.wine.context.repository.UsuarioRepository;
 import br.com.projetointegrador.wine.context.utils.CriptografiaUtils;
 import jakarta.validation.Valid;
@@ -20,16 +20,16 @@ public class LoginController {
     private UsuarioRepository usuarioRepository;
 
     @GetMapping("/loginAdministrativo")
-    public ModelAndView login(){
+    public ModelAndView login(RequisicaoLoginDTO loginUsuarioDTO){
         ModelAndView modelAndView = new ModelAndView("areaAdministrativa/login");
         return modelAndView;
     }
 
     @PostMapping("/acessarAreaAdministrativa")
-    public ModelAndView acessarAreaAdministrativa(@Valid LoginUsuarioDTO loginUsuarioDTO, BindingResult result) {
+    public ModelAndView acessarAreaAdministrativa(@Valid RequisicaoLoginDTO loginUsuarioDTO, BindingResult result) {
         if (result.hasErrors()) {
             System.out.println("Tem erros!");
-            return new ModelAndView("redirect:/areaAdministrativa/login");
+            return new ModelAndView("areaAdministrativa/login");
         }
         Usuario usuarioRequisicao = loginUsuarioDTO.toUsuario();
         String email = usuarioRequisicao.getEmail();
@@ -46,6 +46,4 @@ public class LoginController {
         }
         return new ModelAndView("redirect:/loginAdministrativo");
     }
-
-
 }

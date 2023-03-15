@@ -12,9 +12,9 @@
         <div>
             img src="">
         </div>
-
-        <form action="/acessarAreaAdministrativa" method="POST">
-            <input type="text" name="email" placeholder="nome de usuario" autofocus>
+        <form th:object="${requisicaoLoginDTO}" action="/acessarAreaAdministrativa" method="POST">
+            <input class="form-control" th:errorclass="is-invalid" type="text" th:field="*{email}" placeholder="E-mail" autofocus>
+            <div class="invalid-feedback" th:errors="*{email}"></div>
             <input type="password" name="senha" placeholder="sua senha">
             <input type="submit" value="entrar">
         </form>

@@ -1,10 +1,17 @@
 package br.com.projetointegrador.wine.context.controller;
 
+import br.com.projetointegrador.wine.context.model.Grupo;
+import br.com.projetointegrador.wine.context.dto.RequisicaoNovoUsuarioDTO;
+import br.com.projetointegrador.wine.context.model.Situacao;
 import br.com.projetointegrador.wine.context.model.Usuario;
 import br.com.projetointegrador.wine.context.repository.UsuarioRepository;
+import br.com.projetointegrador.wine.context.utils.CriptografiaUtils;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -13,11 +20,59 @@ import java.util.List;
 public class UsuarioController {
     @Autowired
     private UsuarioRepository usuarioRepository;
+
+//    Eu quero, eu posso: Listar os usuários do sistema
+//    Para que: Para poder selecionar um usuário para manutenção
+//    Critérios de aceite:
+//    Lista todos os usuários  usuários cadastrados no sistema na entrada da tela mostrando o Nome, email, status, Grupo - para administrador.
+//    Ao clicar em altera usuário o sistema deverá enviar para Alteração
+//    Ao clicar em inativar/reativar o sistema deverá troca (se ativo passa para inativo ou se inativo passa para ativo)
+//    O listar usuários deve permitir filtrar (por nome de usuário) a lista de usuários do sistema.
     @GetMapping("/usuarios")
     public ModelAndView index(){
         List<Usuario> usuarios = usuarioRepository.findAll();
         ModelAndView mv = new ModelAndView("areaAdministrativa/usuarios/index");
         mv.addObject("usuarios", usuarios);
         return mv;
+    }
+//    Eu quero, eu posso: Cadastrar um novo usuário
+//    Para que: Para registrar um usuário no sistema
+//    Critérios de aceite:
+//    Cadastrar o nome do usuário, cpdf, email, senha, grupo (admin/estoquista) no banco de dados.
+//    No cadastro, pedir a senha 2 vezes. Só permitir o cadastro quando as 2 senhas estiverem iguais.
+//    A senha deve ser encriptada antes de enviar para o banco de dados.
+//    O cadastro de usuário cadastra o registro como ativo (sempre)
+//    Não é permitido cadastrar dois usuários com mesmo login (email)
+//    O cpf deve ser validado antes da gravação.
+    @GetMapping("/usuarios/new")
+    public ModelAndView newUsuario(){
+        ModelAndView mv = new ModelAndView("areaAdministrativa/new");
+        mv.addObject("situacoes", Situacao.values());
+        mv.addObject("grupos", Grupo.values());
+        return mv;
+    }
+
+//    Eu quero, eu posso: Cadastrar um novo usuário
+//    Para que: Para registrar um usuário no sistema
+//    Critérios de aceite:
+//    Cadastrar o nome do usuário, cpdf, email, senha, grupo (admin/estoquista) no banco de dados.
+//    No cadastro, pedir a senha 2 vezes. Só permitir o cadastro quando as 2 senhas estiverem iguais.
+//    A senha deve ser encriptada antes de enviar para o banco de dados.
+//    O cadastro de usuário cadastra o registro como ativo (sempre)
+//    Não é permitido cadastrar dois usuários com mesmo login (email)
+//    O cpf deve ser validado antes da gravação.
+    @PostMapping("/usuarios")
+    public ModelAndView create(@Valid RequisicaoNovoUsuarioDTO requisicao, BindingResult result){
+        if(result.hasErrors()){
+            ModelAndView mv = new ModelAndView("/usuarios/new");
+            mv.addObject("situacoes", Situacao.values());
+            mv.addObject("grupos", Grupo.values());
+            return mv;
+        }
+        Usuario usuario = requisicao.toUsuario();
+        String senhaCriptada = CriptografiaUtils.criptografar(usuario.getSenha());
+        usuario.setSenha(senhaCriptada);
+        this.usuarioRepository.save(usuario);
+        return new ModelAndView("redirect:/usuarios");
     }
 }
