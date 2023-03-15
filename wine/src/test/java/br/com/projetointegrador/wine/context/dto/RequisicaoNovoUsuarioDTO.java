@@ -3,6 +3,7 @@ import br.com.projetointegrador.wine.context.model.Grupo;
 import br.com.projetointegrador.wine.context.model.Situacao;
 import br.com.projetointegrador.wine.context.model.Usuario;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 @Entity
@@ -11,13 +12,20 @@ public class RequisicaoNovoUsuarioDTO {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NotNull
+    @NotBlank
     @Column(nullable = false)
     private String nome;
     @NotNull
+    @NotBlank
     @Column(nullable = false, unique = true)
     private String cpf;
+    @NotNull
+    @NotBlank
     @Column(nullable = false, unique = true)
     private String email;
+    @NotNull
+    @NotBlank
     @Column(nullable = false)
     private String senha;
     @Column(nullable = false)

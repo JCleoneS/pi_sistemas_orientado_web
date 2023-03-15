@@ -7,8 +7,10 @@ import br.com.projetointegrador.wine.context.model.Usuario;
 import br.com.projetointegrador.wine.context.repository.UsuarioRepository;
 import br.com.projetointegrador.wine.context.utils.CriptografiaUtils;
 import jakarta.validation.Valid;
+import org.glassfish.jaxb.core.v2.TODO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -32,7 +34,7 @@ public class UsuarioController {
     @GetMapping("/usuarios")
     public ModelAndView index(){
         List<Usuario> usuarios = usuarioRepository.findAll();
-        ModelAndView mv = new ModelAndView("admin/usuarios/index");
+        ModelAndView mv = new ModelAndView("admin/index");
         mv.addObject("usuarios", usuarios);
         return mv;
     }
@@ -46,7 +48,7 @@ public class UsuarioController {
 //    Não é permitido cadastrar dois usuários com mesmo login (email)
 //    O cpf deve ser validado antes da gravação.
     @GetMapping("/usuarios/new")
-    public ModelAndView newUsuario(){
+    public ModelAndView newUsuario(RequisicaoNovoUsuarioDTO requisicaoNovoUsuarioDTO){
         ModelAndView mv = new ModelAndView("admin/new");
         mv.addObject("situacoes", Situacao.values());
         mv.addObject("grupos", Grupo.values());
@@ -64,7 +66,7 @@ public class UsuarioController {
     @PostMapping("/usuarios")
     public ModelAndView create(@Valid RequisicaoNovoUsuarioDTO requisicao, BindingResult result){
         if(result.hasErrors()){
-            ModelAndView mv = new ModelAndView("/usuarios/new");
+            ModelAndView mv = new ModelAndView("admin/new");
             mv.addObject("situacoes", Situacao.values());
             mv.addObject("grupos", Grupo.values());
             return mv;
@@ -72,6 +74,7 @@ public class UsuarioController {
         Usuario usuario = requisicao.toUsuario();
         String senhaCriptada = CriptografiaUtils.criptografar(usuario.getSenha());
         usuario.setSenha(senhaCriptada);
+        usuario.setSituacao(Situacao.ATIVO);
         this.usuarioRepository.save(usuario);
         return new ModelAndView("redirect:/usuarios");
     }

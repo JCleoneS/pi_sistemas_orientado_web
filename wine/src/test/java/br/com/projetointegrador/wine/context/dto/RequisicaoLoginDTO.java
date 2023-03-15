@@ -3,7 +3,6 @@ import br.com.projetointegrador.wine.context.model.Usuario;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 
 public class RequisicaoLoginDTO {
     @NotBlank

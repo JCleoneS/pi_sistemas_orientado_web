@@ -1,0 +1,48 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{/admin/fragmentos :: head}"></head>
+<body>
+<header th:replace="~{/admin/fragmentos :: header}"></header>
+<div class="container">
+    <div class="row">
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Nome</th>
+                    <th scope="col">E-mail</th>
+                    <th scope="col">Situação</th>
+                    <th scope="col">Grupo</th>
+<!--                    <th scope="col">Senha</th>-->
+<!--                    <th scope="col">Situação</th>-->
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="usuario : ${usuarios}">
+                    <th class="col-1" scope="row" th:text="${usuario.getId()}">#</th>
+                    <td class="col-2" th:text="${usuario.nome}">#</td>
+                    <td class="col-2" th:text="${usuario.email}">#</td>
+                    <td class="col-2" th:text="${usuario.situacao.toString()}">#</td>
+                    <td class="col-4" th:text="${usuario.grupo.toString()}">#</td>
+<!--                    <td class="col-2" th:text="${usuario.cpf}">#</td>-->
+<!--                    <td class="col-2 hidetext" th:text="${usuario.senha}">#</td>-->
+                    <td class="col-1"><a href="#"> Editar</a></td>
+                    <td class="col-1"><a href="#"> Inativar</a></td>
+                </tr>
+                </tbody>
+                <!--    Nome, email, status, Grupo-->
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <a href="/usuarios/new">Novo usuário</a>
+    </div>
+</div>
+</body>
+</html>
