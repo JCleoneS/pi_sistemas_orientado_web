@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -31,7 +32,7 @@ public class UsuarioController {
     @GetMapping("/usuarios")
     public ModelAndView index(){
         List<Usuario> usuarios = usuarioRepository.findAll();
-        ModelAndView mv = new ModelAndView("areaAdministrativa/usuarios/index");
+        ModelAndView mv = new ModelAndView("admin/usuarios/index");
         mv.addObject("usuarios", usuarios);
         return mv;
     }
@@ -46,12 +47,11 @@ public class UsuarioController {
 //    O cpf deve ser validado antes da gravação.
     @GetMapping("/usuarios/new")
     public ModelAndView newUsuario(){
-        ModelAndView mv = new ModelAndView("areaAdministrativa/new");
+        ModelAndView mv = new ModelAndView("admin/new");
         mv.addObject("situacoes", Situacao.values());
         mv.addObject("grupos", Grupo.values());
         return mv;
     }
-
 //    Eu quero, eu posso: Cadastrar um novo usuário
 //    Para que: Para registrar um usuário no sistema
 //    Critérios de aceite:
@@ -74,5 +74,12 @@ public class UsuarioController {
         usuario.setSenha(senhaCriptada);
         this.usuarioRepository.save(usuario);
         return new ModelAndView("redirect:/usuarios");
+    }
+
+    @PutMapping("/{id}")
+    public ModelAndView update(Usuario requisicao){
+        ModelAndView mv = new ModelAndView("/usuarios");
+        System.out.println("Teste 'PutMapping' em '(\"usuarios/:id\")'");
+        return mv;
     }
 }

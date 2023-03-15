@@ -21,26 +21,24 @@ public class LoginController {
 
     @GetMapping("/loginAdministrativo")
     public ModelAndView login(RequisicaoLoginDTO loginUsuarioDTO){
-        ModelAndView modelAndView = new ModelAndView("areaAdministrativa/login");
+        ModelAndView modelAndView = new ModelAndView("admin/login");
         return modelAndView;
     }
 
     @PostMapping("/acessarAreaAdministrativa")
     public ModelAndView acessarAreaAdministrativa(@Valid RequisicaoLoginDTO loginUsuarioDTO, BindingResult result) {
         if (result.hasErrors()) {
-            System.out.println("Tem erros!");
-            return new ModelAndView("areaAdministrativa/login");
+            return new ModelAndView("admin/login");
         }
         Usuario usuarioRequisicao = loginUsuarioDTO.toUsuario();
         String email = usuarioRequisicao.getEmail();
         String senha = CriptografiaUtils.criptografar(usuarioRequisicao.getSenha());
-
         List<Usuario> usuarioBanco = this.usuarioRepository.findAll();
         for (Usuario usuario: usuarioBanco) {
             if (email.equals(usuarioRequisicao.getEmail())){
                 String senhaBanco = usuario.getSenha();
                 if(senhaBanco.equals(senha)){
-                    return new ModelAndView("/areaAdministrativa/home");
+                    return new ModelAndView("/admin/home");
                 }
             }
         }

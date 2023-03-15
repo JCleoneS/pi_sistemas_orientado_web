@@ -1,0 +1,45 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>Login</title>
+	<link rel="stylesheet" type="text/css" href="/admin/css/styles.css">
+	<link href="https://fonts.googleapis.com/css?family=Poppins:600&display=swap" rel="stylesheet">
+	<script src="https://kit.fontawesome.com/a81368914c.js"></script>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+	<div class="container">
+        <div class="img">
+			<img th:src="@{/admin/images/logo.png}"/>
+		</div>
+		<div class="login-content">
+			<form th:object="${requisicaoLoginDTO}" action="/acessarAreaAdministrativa" method="POST">
+				<img th:src="@{/admin/images/avatar.png}"/>
+				<h2 class="title">Login</h2>
+           		<div class="input-div one focus">
+           		   <div class="i">
+           		   		<i class="fas fa-user"></i>
+           		   </div>
+           		   <div class="div">
+           		   		<h5>Usuario</h5>
+           		   		<input class="form-control" th:errorclass="is-invalid" type="text" th:field="*{email}">
+					   <div class="invalid-feedback" th:errors="*{email}"></div>
+				   </div>
+           		</div>
+           		<div class="input-div two focus ">
+           		   <div class="i"> 
+           		    	<i class="fas fa-lock"></i>
+           		   </div>
+           		   <div class="div">
+           		    	<h5>Senha</h5>
+					   <input class="form-control" th:errorclass="is-invalid" type="password" th:field="*{senha}">
+					   <div class="invalid-feedback" th:errors="*{senha}"></div>
+            	   </div>
+            	</div>
+                <input type="submit" class="btn" value="Entrar">
+            </form>
+        </div>
+    </div>
+    <script type="text/javascript" src="/admin/js/main.js"></script>
+</body>
+</html>
