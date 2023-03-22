@@ -1,0 +1,58 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{/admin/fragmentos :: head('Editar Usuario #')}"></head>
+<body>
+<header th:replace="~{/admin/fragmentos :: header('Editar Usuario #')}"></header>
+<div class="container">
+    <form th:object="${requisicaoNovoUsuarioDTO}" action="/usuarios" method="POST">
+        <div class="form-group">
+            <label class="form-label">CPF</label>
+            <input class="form-control" th:errorclass="is-invalid" type="text" th:field="*{cpf}">
+            <div class="invalid-feedback" th:errors="*{cpf}"></div>
+        </div>
+        <div class="form-group">
+            <label class="form-label">E-mail</label>
+            <input class="form-control" th:errorclass="is-invalid" type="text" th:field="*{email}">
+            <div class="invalid-feedback" th:errors="*{email}"></div>
+        </div>
+        <div class="form-group">
+            <label class="form-label">Nome</label>
+            <input class="form-control" th:errorclass="is-invalid" type="text" th:field="*{nome}">
+            <div class="invalid-feedback" th:errors="*{nome}"></div>
+        </div>
+        <div class="form-group">
+            <label class="form-label">Senha</label>
+            <input type="password" class="form-control"  th:errorclass="is-invalid" th:field="*{senha}">
+            <div class="invalid-feedback" th:errors="*{senha}"></div>
+        </div>
+<!--        <div class="form-group">-->
+<!--            <label class="form-label">Situação</label>-->
+<!--            <select class="form-select" th:field="*{situacao}">-->
+<!--                <option th:each="situacao : ${situacoes}" th:value="${situacao}" th:text="${situacao}"></option>-->
+<!--            </select>-->
+<!--            <div class="invalid-feedback"></div>-->
+<!--        </div>-->
+        <div class="form-group">
+            <label class="form-label">Grupo</label>
+            <select class="form-select" th:field="*{grupo}">
+                <option th:each="grupo : ${grupos}" th:value="${grupo}" th:text="${grupo}"></option>
+            </select>
+            <div class="invalid-feedback"></div>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+</body>
+</html>
+
+<!--| Field    | Type         | Null | Key | Default | Extra          |-->
+<!--+&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;+&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;+&#45;&#45;&#45;&#45;&#45;&#45;+-&#45;&#45;&#45;&#45;+-&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;+&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;+-->
+<!--| id       | bigint       | NO   | PRI | NULL    | auto_increment |-->
+<!--| cargo    | varchar(255) | NO   |     | NULL    |                |-->
+<!--| cpf      | varchar(255) | NO   | UNI | NULL    |                |-->
+<!--| email    | varchar(255) | NO   | UNI | NULL    |                |-->
+<!--| nome     | varchar(255) | NO   |     | NULL    |                |-->
+<!--| senha    | varchar(255) | NO   |     | NULL    |                |-->
+<!--| situacao | varchar(255) | NO   |     | NULL    |                |-->
+<!--| grupo    | varchar(255) | NO   |     | NULL    |                |-->
+<!--+&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;+&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;+&#45;&#45;&#45;&#45;&#45;&#45;+-&#45;&#45;&#45;&#45;+-&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;+&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;+-->
