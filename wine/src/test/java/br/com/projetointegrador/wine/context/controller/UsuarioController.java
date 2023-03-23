@@ -12,15 +12,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.sql.SQLOutput;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
+@RequestMapping(value = "/usuarios")
 public class UsuarioController {
     @Autowired
     private UsuarioRepository usuarioRepository;
@@ -32,7 +32,7 @@ public class UsuarioController {
 //    Ao clicar em altera usuário o sistema deverá enviar para Alteração
 //    Ao clicar em inativar/reativar o sistema deverá troca (se ativo passa para inativo ou se inativo passa para ativo)
 //    O listar usuários deve permitir filtrar (por nome de usuário) a lista de usuários do sistema.
-    @GetMapping("/usuarios")
+    @GetMapping("")
     public ModelAndView index(){
         List<Usuario> usuarios = usuarioRepository.findAll();
         ModelAndView mv = new ModelAndView("admin/index");
@@ -48,7 +48,7 @@ public class UsuarioController {
 //    O cadastro de usuário cadastra o registro como ativo (sempre)
 //    Não é permitido cadastrar dois usuários com mesmo login (email)
 //    O cpf deve ser validado antes da gravação.
-    @GetMapping("/usuarios/new")
+    @GetMapping("/new")
     public ModelAndView newUsuario(RequisicaoNovoUsuarioDTO requisicaoNovoUsuarioDTO){
         ModelAndView mv = new ModelAndView("admin/new");
         mv.addObject("situacoes", Situacao.values());
@@ -64,7 +64,7 @@ public class UsuarioController {
 //    O cadastro de usuário cadastra o registro como ativo (sempre)
 //    Não é permitido cadastrar dois usuários com mesmo login (email)
 //    O cpf deve ser validado antes da gravação.
-    @PostMapping("/usuarios")
+    @PostMapping("")
     public ModelAndView create(@Valid RequisicaoNovoUsuarioDTO requisicao, BindingResult result){
         if(result.hasErrors()){
             ModelAndView mv = new ModelAndView("admin/new");
@@ -87,10 +87,51 @@ public class UsuarioController {
         return mv;
     }
 
-    @GetMapping("/usuarios/{id}/edit")
-    public ModelAndView edit(@PathVariable Long id, RequisicaoNovoUsuarioDTO requisicao){
-        ModelAndView mv = new ModelAndView("usuarios/edit");
+    @GetMapping("/{id}/edit")
+    public ModelAndView edit(@PathVariable Long id, RequisicaoNovoUsuarioDTO requisicaoNovoUsuarioDTO){
+        Optional<Usuario> optional = this.usuarioRepository.findById(id);
 
+        if (optional.isPresent()){
+            Usuario usuario = optional.get();
+            ModelAndView mv = new ModelAndView("/usuarios/edit");
+            mv.addObject("usuarioId", usuario.getId());
+            mv.addObject("situacoes", Situacao.values());
+            mv.addObject("grupos", Grupo.values());
+        }
+          //não achou um registro na tabela usuario com o id informado
+        else{
+            System.out.println("Nao Achaou o Usuario de ID: "+id);
+            return new ModelAndView("redirect:/usuarios");
+        }
+
+        ModelAndView mv = new ModelAndView("/usuarios/edit");
         return mv;
+    }
+
+    @PostMapping("/{id}")
+    public ModelAndView update(@PathVariable Long id,@Valid RequisicaoNovoUsuarioDTO requisicao, BindingResult result){
+        if(result.hasErrors()){
+            ModelAndView mv = new ModelAndView("/usuarios/edit");
+            mv.addObject("situacoes", Situacao.values());
+            mv.addObject("grupos", Grupo.values());
+            return mv;
+        }else{
+            Optional<Usuario> optional = this.usuarioRepository.findById(id);
+
+            if (optional.isPresent()) {
+                Usuario usuario = requisicao.toUsuario(optional.get());
+                String senhaCriptada = CriptografiaUtils.criptografar(usuario.getSenha());
+                usuario.setSenha(senhaCriptada);
+                usuario.setSituacao(Situacao.ATIVO);
+                this.usuarioRepository.save(usuario);
+
+                return new ModelAndView("redirect:/usuarios" + usuario.getId());
+                //não achou um registro na tabela usuario com o id informado
+            }else{
+                    System.out.println("Nao Achaou o Usuario de ID: "+id);
+                    return new ModelAndView("redirect:/usuarios");
+
+            }
+        }
     }
 }

@@ -103,4 +103,23 @@ public class RequisicaoNovoUsuarioDTO {
         usuario.setGrupo(this.grupo);
         return usuario;
     }
+
+    public Usuario toUsuario(Usuario usuario){
+        usuario.setNome(this.nome);
+        usuario.setCpf(this.cpf);
+        usuario.setEmail(this.email);
+        usuario.setSenha(this.senha);
+        usuario.setSituacao(this.situacao);
+        usuario.setGrupo(this.grupo);
+        return usuario;
+    }
+
+    public void fromUsuario(Usuario usuario){
+        this.nome = usuario.getNome();
+        this.cpf = usuario.getCpf();
+        this.email = usuario.getEmail();
+        this.senha = usuario.getSenha();
+        this.situacao = usuario.getSituacao();
+        this.grupo = usuario.getGrupo();
+    }
 }
