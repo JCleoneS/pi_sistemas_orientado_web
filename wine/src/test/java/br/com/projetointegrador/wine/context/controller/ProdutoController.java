@@ -23,9 +23,9 @@ public class ProdutoController {
 
     @GetMapping("")
     public ModelAndView prodList(){
-
+       // List<Produto> produtos = produtoRepository.findAll();
         ModelAndView mv = new ModelAndView("admin/produtos");
-
+       // mv.addObject("produtos", produtos);
         return mv;
     }
 
