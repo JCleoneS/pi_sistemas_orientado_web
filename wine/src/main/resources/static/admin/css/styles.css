@@ -64,7 +64,7 @@ form{
     border-bottom: 2px solid #d9d9d9;
 }
 .input-div.focus.i i{
-    color: #E3467B;
+    color: #7C072F;
 
 }
 .input-div.focus div h5{
@@ -148,7 +148,7 @@ form{
 }
 
 .input-div.focus > .i > i{
-	color: #E3467B;
+	color: #7C072F;
 }
 
 .input-div > div > input{
@@ -179,7 +179,7 @@ form{
     font-size: 1.2rem;
 	outline: none;
 	border: none;
-	background-image: linear-gradient(to right, #E3467B, #dc3377, #dc1b68, #bb044e); 
+	background-image: linear-gradient(to right, #7C072F, #7C072F, #dc1b68, #bb044e);
 	background-size: 200%;
     cursor: pointer;
     transition: .5s;
