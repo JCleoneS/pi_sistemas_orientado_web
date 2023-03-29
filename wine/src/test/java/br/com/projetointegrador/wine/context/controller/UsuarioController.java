@@ -100,7 +100,7 @@ public class UsuarioController {
         }
           //não achou um registro na tabela usuario com o id informado
         else{
-            System.out.println("Nao Achaou o Usuario de ID: "+id);
+            System.out.println("Nao Achou o Usuario de ID: "+id);
             return new ModelAndView("redirect:/usuarios");
         }
 

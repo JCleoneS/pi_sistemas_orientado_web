@@ -18,3 +18,9 @@ inputs.forEach(input => {
 	input.addEventListener("focus", focusFunc);
 	input.addEventListener("blur", blurFunc);
 });
+
+let search = document.querySelector('.search-box');
+
+document.querySelector('#search-icon').onclick = () => {
+    search.classList.toggle('active');
+}
