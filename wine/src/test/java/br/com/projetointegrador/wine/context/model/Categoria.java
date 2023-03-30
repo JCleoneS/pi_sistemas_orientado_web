@@ -1,5 +1,5 @@
 package br.com.projetointegrador.wine.context.model;
 
-public enum ProdCat {
+public enum Categoria {
     TINTO, BRANCO, ROSE
 }

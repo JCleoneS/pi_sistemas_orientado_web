@@ -6,16 +6,16 @@ public class Produto {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long cod;
     @Column(nullable = false)
     private String nome;
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
-    private ProdCat tipo;
+    private Categoria tipo;
 
     @Column(nullable = false)
-    private String desc;
+    private String descri;
 
     @Column(nullable = false)
     private double preco;
@@ -26,13 +26,11 @@ public class Produto {
 
     public Produto(){ }
 
-    public Long getId() {
-        return id;
+    public Long getCod() {
+        return cod;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    public void setCod(Long cod) {this.cod = cod;}
 
     public String getNome() {return nome; }
 
@@ -40,20 +38,20 @@ public class Produto {
         this.nome = nome;
     }
 
-    public ProdCat getTipo() {
+    public Categoria getTipo() {
         return tipo;
     }
 
-    public void setTipo(ProdCat tipo) {
+    public void setTipo(Categoria tipo) {
         this.tipo = tipo;
     }
 
-    public String getDesc() {
-        return desc;
+    public String getDescri() {
+        return descri;
     }
 
-    public void setDesc(String desc) {
-        this.desc = desc;
+    public void setDescri(String descri) {
+        this.descri = descri;
     }
 
     public double getPreco() {

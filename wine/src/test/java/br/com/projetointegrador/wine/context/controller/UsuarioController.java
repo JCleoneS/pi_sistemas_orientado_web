@@ -1,5 +1,4 @@
 package br.com.projetointegrador.wine.context.controller;
-
 import br.com.projetointegrador.wine.context.model.Grupo;
 import br.com.projetointegrador.wine.context.dto.RequisicaoNovoUsuarioDTO;
 import br.com.projetointegrador.wine.context.model.Situacao;
@@ -7,15 +6,11 @@ import br.com.projetointegrador.wine.context.model.Usuario;
 import br.com.projetointegrador.wine.context.repository.UsuarioRepository;
 import br.com.projetointegrador.wine.context.utils.CriptografiaUtils;
 import jakarta.validation.Valid;
-import org.glassfish.jaxb.core.v2.TODO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-
-import java.sql.SQLOutput;
 import java.util.List;
 import java.util.Optional;
 
