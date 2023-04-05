@@ -2,6 +2,9 @@ package br.com.projetointegrador.wine.context.dto;
 import br.com.projetointegrador.wine.context.model.Grupo;
 import br.com.projetointegrador.wine.context.model.Situacao;
 import br.com.projetointegrador.wine.context.model.Usuario;
+import br.com.projetointegrador.wine.context.validacao.CpfUnico;
+import br.com.projetointegrador.wine.context.validacao.EmailUnico;
+import br.com.projetointegrador.wine.context.validacao.ValidarCpf;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -19,10 +22,13 @@ public class RequisicaoNovoUsuarioDTO {
     @NotNull
     @NotBlank
     @Column(nullable = false, unique = true)
+    @ValidarCpf
+    @CpfUnico
     private String cpf;
     @NotNull
     @NotBlank
     @Column(nullable = false, unique = true)
+    @EmailUnico
     private String email;
     @NotNull
     @NotBlank

@@ -1,7 +1,7 @@
 package br.com.projetointegrador.wine.context.controller;
 
-import br.com.projetointegrador.wine.context.model.Usuario;
 import br.com.projetointegrador.wine.context.dto.RequisicaoLoginDTO;
+import br.com.projetointegrador.wine.context.model.Usuario;
 import br.com.projetointegrador.wine.context.repository.UsuarioRepository;
 import br.com.projetointegrador.wine.context.utils.CriptografiaUtils;
 import jakarta.validation.Valid;
@@ -20,26 +20,23 @@ public class LoginController {
     private UsuarioRepository usuarioRepository;
 
     @GetMapping("/loginAdministrativo")
-    public ModelAndView login(RequisicaoLoginDTO loginUsuarioDTO){
+    public ModelAndView login(RequisicaoLoginDTO loginUsuarioDTO) {
         ModelAndView modelAndView = new ModelAndView("admin/login");
         return modelAndView;
     }
 
     @PostMapping("/acessarAreaAdministrativa")
-    public ModelAndView acessarAreaAdministrativa(@Valid RequisicaoLoginDTO loginUsuarioDTO, BindingResult result) {
+    public ModelAndView acessarAreaAdministrativa(@Valid RequisicaoLoginDTO usuarioDaRequisicao, BindingResult result) {
         if (result.hasErrors()) {
             return new ModelAndView("admin/login");
         }
-        Usuario usuarioRequisicao = loginUsuarioDTO.toUsuario();
-        String email = usuarioRequisicao.getEmail();
-        String senha = CriptografiaUtils.criptografar(usuarioRequisicao.getSenha());
-        List<Usuario> usuarioBanco = this.usuarioRepository.findAll();
-        for (Usuario usuario: usuarioBanco) {
-            if (email.equals(usuarioRequisicao.getEmail())){
-                String senhaBanco = usuario.getSenha();
-                if(senhaBanco.equals(senha)){
-                    return new ModelAndView("/admin/home");
-                }
+        String email = usuarioDaRequisicao.getEmail();
+        String senhaDaRequisicao = CriptografiaUtils.criptografar(usuarioDaRequisicao.getSenha());
+        List<Usuario> usuarioDoBanco = usuarioRepository.findByEmail(email);
+        if (usuarioDoBanco.size() > 0) {
+            String senhaDoBanco = usuarioDoBanco.get(0).getSenha();
+            if (senhaDoBanco.equals(senhaDaRequisicao)) {
+                return new ModelAndView("/admin/home");
             }
         }
         return new ModelAndView("redirect:/loginAdministrativo");
