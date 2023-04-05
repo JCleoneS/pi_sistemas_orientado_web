@@ -31,7 +31,7 @@
                     <td class="col-2" th:text="${usuario.situacao.toString()}">#</td>
                     <td class="col-4" th:text="${usuario.grupo.toString()}">#</td>
                     <td class="col-1"><a th:href="@{/usuarios/{usuarioId}/edit(usuarioId = ${usuario.id})}"> Editar</a></td>
-                    <td class="col-1"><a href="#"> Inativar</a></td>
+                    <td class="col-1"><a href="@{/usuarios/{usuarioId}/inativar(usuarioId = ${usuario.id})}"> Inativar</a></td>
                 </tr>
                 </tbody>
             </table>

@@ -75,10 +75,12 @@ public class UsuarioController {
         return new ModelAndView("redirect:/usuarios");
     }
 
-    @PutMapping("/{id}")
-    public ModelAndView update(Usuario requisicao){
-        ModelAndView mv = new ModelAndView("/usuarios");
-        System.out.println("Teste 'PutMapping' em '(\"usuarios/:id\")'");
+    @PutMapping("/{id}/inativar")
+    public ModelAndView inativar(Usuario requisicao){
+        System.out.println(requisicao);
+        List<Usuario> usuarios = usuarioRepository.findAll();
+        ModelAndView mv = new ModelAndView("admin/index");
+        mv.addObject("usuarios", usuarios);
         return mv;
     }
 
