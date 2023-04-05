@@ -75,12 +75,16 @@ public class UsuarioController {
         return new ModelAndView("redirect:/usuarios");
     }
 
-    @PutMapping("/{id}/inativar")
+    @GetMapping("/{id}/inativar")
     public ModelAndView inativar(Usuario requisicao){
-        System.out.println(requisicao);
-        List<Usuario> usuarios = usuarioRepository.findAll();
+        Optional<Usuario> optional = usuarioRepository.findById(requisicao.getId());
+        if (optional.isPresent()){
+            Usuario usuario = optional.get();
+            usuario.setSituacao(Situacao.INATIVO);
+            usuarioRepository.save(usuario);
+        }
         ModelAndView mv = new ModelAndView("admin/index");
-        mv.addObject("usuarios", usuarios);
+        mv.addObject("usuarios", usuarioRepository.findAll());
         return mv;
     }
 
