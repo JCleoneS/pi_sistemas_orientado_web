@@ -30,10 +30,12 @@
           <td class="col-2" th:text="${produto.descri}">#</td>
           <td class="col-4" th:text="${produto.qtde}">#</td>
           <td class="col-4" th:text="${produto.preco}">#</td>
-          <!--                    <td class="col-2" th:text="${usuario.cpf}">#</td>-->
-          <!--                    <td class="col-2 hidetext" th:text="${usuario.senha}">#</td>-->
-          <td class="col-1"><a th:href="@{/produtos/{prodCod}/edit(prodCod = ${produto.cod})}"> Editar</a></td>
-          <td class="col-1"><a href="#"> Inativar</a></td>
+          <td class="col-1">
+            <form action="#" th:action="@{/produtos/__${produto.cod}__/edit}" method="get">
+              <button type="submit" class="btn btn-link">Editar</button>
+            </form>
+          </td>
+          <td class="col-1">
         </tr>
         </tbody>
         <!--    Nome, email, status, Grupo-->
@@ -41,7 +43,10 @@
     </div>
   </div>
   <div class="row">
-    <a href="/produtos/novo-produto">Novo produto</a>
+    <!--    <a href="/produtos/novo-produto">Novo produto</a>-->
+    <form action="#" th:action="@{/produtos/novo-produto}" method="get">
+      <button type="submit" class="btn btn-link">Adicionar produto</button>
+    </form>
   </div>
 </div>
 </body>
