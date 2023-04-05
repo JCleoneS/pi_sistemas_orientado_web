@@ -1,6 +1,7 @@
 package br.com.projetointegrador.wine.context.controller;
-import br.com.projetointegrador.wine.context.model.Grupo;
+
 import br.com.projetointegrador.wine.context.dto.RequisicaoNovoUsuarioDTO;
+import br.com.projetointegrador.wine.context.model.Grupo;
 import br.com.projetointegrador.wine.context.model.Situacao;
 import br.com.projetointegrador.wine.context.model.Usuario;
 import br.com.projetointegrador.wine.context.repository.UsuarioRepository;
@@ -9,8 +10,12 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -20,7 +25,7 @@ public class UsuarioController {
     @Autowired
     private UsuarioRepository usuarioRepository;
 
-//    Eu quero, eu posso: Listar os usuários do sistema
+    //    Eu quero, eu posso: Listar os usuários do sistema
 //    Para que: Para poder selecionar um usuário para manutenção
 //    Critérios de aceite:
 //    Lista todos os usuários  usuários cadastrados no sistema na entrada da tela mostrando o Nome, email, status, Grupo - para administrador.
@@ -28,13 +33,14 @@ public class UsuarioController {
 //    Ao clicar em inativar/reativar o sistema deverá troca (se ativo passa para inativo ou se inativo passa para ativo)
 //    O listar usuários deve permitir filtrar (por nome de usuário) a lista de usuários do sistema.
     @GetMapping("")
-    public ModelAndView index(){
+    public ModelAndView index() {
         List<Usuario> usuarios = usuarioRepository.findAll();
         ModelAndView mv = new ModelAndView("admin/index");
         mv.addObject("usuarios", usuarios);
         return mv;
     }
-//    Eu quero, eu posso: Cadastrar um novo usuário
+
+    //    Eu quero, eu posso: Cadastrar um novo usuário
 //    Para que: Para registrar um usuário no sistema
 //    Critérios de aceite:
 //    Cadastrar o nome do usuário, cpdf, email, senha, grupo (admin/estoquista) no banco de dados.
@@ -44,13 +50,14 @@ public class UsuarioController {
 //    Não é permitido cadastrar dois usuários com mesmo login (email)
 //    O cpf deve ser validado antes da gravação.
     @GetMapping("/new")
-    public ModelAndView newUsuario(RequisicaoNovoUsuarioDTO requisicaoNovoUsuarioDTO){
+    public ModelAndView newUsuario(RequisicaoNovoUsuarioDTO requisicaoNovoUsuarioDTO) {
         ModelAndView mv = new ModelAndView("admin/new");
         mv.addObject("situacoes", Situacao.values());
         mv.addObject("grupos", Grupo.values());
         return mv;
     }
-//    Eu quero, eu posso: Cadastrar um novo usuário
+
+    //    Eu quero, eu posso: Cadastrar um novo usuário
 //    Para que: Para registrar um usuário no sistema
 //    Critérios de aceite:
 //    Cadastrar o nome do usuário, cpdf, email, senha, grupo (admin/estoquista) no banco de dados.
@@ -60,8 +67,8 @@ public class UsuarioController {
 //    Não é permitido cadastrar dois usuários com mesmo login (email)
 //    O cpf deve ser validado antes da gravação.
     @PostMapping("")
-    public ModelAndView create(@Valid RequisicaoNovoUsuarioDTO requisicao, BindingResult result){
-        if(result.hasErrors()){
+    public ModelAndView create(@Valid RequisicaoNovoUsuarioDTO requisicao, BindingResult result) {
+        if (result.hasErrors()) {
             ModelAndView mv = new ModelAndView("admin/new");
             mv.addObject("situacoes", Situacao.values());
             mv.addObject("grupos", Grupo.values());
@@ -76,9 +83,9 @@ public class UsuarioController {
     }
 
     @GetMapping("/{id}/inativar")
-    public ModelAndView inativar(Usuario requisicao){
+    public ModelAndView inativar(Usuario requisicao) {
         Optional<Usuario> optional = usuarioRepository.findById(requisicao.getId());
-        if (optional.isPresent()){
+        if (optional.isPresent()) {
             Usuario usuario = optional.get();
             usuario.setSituacao(Situacao.INATIVO);
             usuarioRepository.save(usuario);
@@ -88,37 +95,30 @@ public class UsuarioController {
         return mv;
     }
 
-    @GetMapping("/{id}/edit")
-    public ModelAndView edit(@PathVariable Long id, RequisicaoNovoUsuarioDTO requisicaoNovoUsuarioDTO){
+    @GetMapping("/{id}/editar")
+    public ModelAndView edit(@PathVariable Long id, RequisicaoNovoUsuarioDTO requisicaoNovoUsuarioDTO) {
         Optional<Usuario> optional = this.usuarioRepository.findById(id);
-
-        if (optional.isPresent()){
+        if (optional.isPresent()) {
             Usuario usuario = optional.get();
             ModelAndView mv = new ModelAndView("admin/edit");
             mv.addObject("usuario", usuario);
             mv.addObject("usuarioId", usuario.getId());
             mv.addObject("situacoes", Situacao.values());
             mv.addObject("grupos", Grupo.values());
-
             return mv;
-        }
-          //não achou um registro na tabela usuario com o id informado
-        else{
-            System.out.println("Nao Achou o Usuario de ID: "+id);
+        } else {
             return new ModelAndView("redirect:/usuarios");
         }
-
-
     }
 
     @PostMapping("/{id}")
-    public ModelAndView update(@PathVariable Long id,@Valid RequisicaoNovoUsuarioDTO requisicao, BindingResult result){
-        if(result.hasErrors()){
+    public ModelAndView update(@PathVariable Long id, @Valid RequisicaoNovoUsuarioDTO requisicao, BindingResult result) {
+        if (result.hasErrors()) {
             ModelAndView mv = new ModelAndView("admin/edit");
             mv.addObject("situacoes", Situacao.values());
             mv.addObject("grupos", Grupo.values());
             return mv;
-        }else{
+        } else {
             Optional<Usuario> optional = this.usuarioRepository.findById(id);
 
             if (optional.isPresent()) {
@@ -130,9 +130,9 @@ public class UsuarioController {
 
                 return new ModelAndView("redirect:/usuarios");
                 //não achou um registro na tabela usuario com o id informado
-            }else{
-                    System.out.println("Nao Achaou o Usuario de ID: "+id);
-                    return new ModelAndView("redirect:/usuarios");
+            } else {
+                System.out.println("Nao Achaou o Usuario de ID: " + id);
+                return new ModelAndView("redirect:/usuarios");
 
             }
         }
