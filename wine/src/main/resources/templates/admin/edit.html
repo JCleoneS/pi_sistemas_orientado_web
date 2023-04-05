@@ -25,13 +25,6 @@
             <input type="password" class="form-control"  th:errorclass="is-invalid" th:field="*{senha}">
             <div class="invalid-feedback" th:errors="*{senha}"></div>
         </div>
-        <!--        <div class="form-group">-->
-        <!--            <label class="form-label">Situação</label>-->
-        <!--            <select class="form-select" th:field="*{situacao}">-->
-        <!--                <option th:each="situacao : ${situacoes}" th:value="${situacao}" th:text="${situacao}"></option>-->
-        <!--            </select>-->
-        <!--            <div class="invalid-feedback"></div>-->
-        <!--        </div>-->
         <div class="form-group">
             <label class="form-label">Grupo</label>
             <select class="form-select" th:field="*{grupo}">
@@ -44,15 +37,3 @@
 </div>
 </body>
 </html>
-
-<!--| Field    | Type         | Null | Key | Default | Extra          |-->
-<!--+&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;+&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;+&#45;&#45;&#45;&#45;&#45;&#45;+-&#45;&#45;&#45;&#45;+-&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;+&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;+-->
-<!--| id       | bigint       | NO   | PRI | NULL    | auto_increment |-->
-<!--| cargo    | varchar(255) | NO   |     | NULL    |                |-->
-<!--| cpf      | varchar(255) | NO   | UNI | NULL    |                |-->
-<!--| email    | varchar(255) | NO   | UNI | NULL    |                |-->
-<!--| nome     | varchar(255) | NO   |     | NULL    |                |-->
-<!--| senha    | varchar(255) | NO   |     | NULL    |                |-->
-<!--| situacao | varchar(255) | NO   |     | NULL    |                |-->
-<!--| grupo    | varchar(255) | NO   |     | NULL    |                |-->
-<!--+&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;+&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;+&#45;&#45;&#45;&#45;&#45;&#45;+-&#45;&#45;&#45;&#45;+-&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;+&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;+-->
