@@ -70,15 +70,23 @@ public class ProdutoController {
         return new ModelAndView("redirect:/produtos");
     }
 
-    @GetMapping("/{id}/edit")
+    @GetMapping("/{cod}/edit")
     public ModelAndView edit(@PathVariable Long cod, RequisicaoNovoProdutoDTO requisicaoNovoProdutoDTO){
         Optional<Produto> optional = this.produtoRepository.findById(cod);
 
         if (optional.isPresent()){
             Produto produto = optional.get();
-            ModelAndView mv = new ModelAndView("/produtos/edit");
+//            requisicaoNovoProdutoDTO.setNome();
+//            requisicaoNovoProdutoDTO.setTipo();
+//            requisicaoNovoProdutoDTO.setDescri();
+//            requisicaoNovoProdutoDTO.setPreco();
+//            requisicaoNovoProdutoDTO.setQtde();
+            ModelAndView mv = new ModelAndView("admin/edit-produto");
+            mv.addObject("produto", produto);
             mv.addObject("produtoCod", produto.getCod());
             mv.addObject("categorias", Categoria.values());
+
+            return mv;
         }
         //não achou um registro na tabela usuario com o id informado
         else{
@@ -86,14 +94,14 @@ public class ProdutoController {
             return new ModelAndView("redirect:/produtos");
         }
 
-        ModelAndView mv = new ModelAndView("/produtos/edit");
-        return mv;
+
+
     }
 
-    @PostMapping("/{id}")
+    @PostMapping("/{cod}")
     public ModelAndView update(@PathVariable Long cod,@Valid RequisicaoNovoProdutoDTO requisicao, BindingResult result){
         if(result.hasErrors()){
-            ModelAndView mv = new ModelAndView("/produtos/edit");
+            ModelAndView mv = new ModelAndView("admin/edit-produto");
             mv.addObject("categorias", Categoria.values());
             return mv;
         }else{
@@ -103,7 +111,7 @@ public class ProdutoController {
                 Produto produto = requisicao.toProduto(optional.get());
                 this.produtoRepository.save(produto);
 
-                return new ModelAndView("redirect:/produtos" + produto.getCod());
+                return new ModelAndView("redirect:/produtos");
                 //não achou um registro na tabela usuario com o id informado
             }else{
                 System.out.println("Nao achou o produto de codigo: "+cod);

@@ -88,10 +88,13 @@ public class UsuarioController {
 
         if (optional.isPresent()){
             Usuario usuario = optional.get();
-            ModelAndView mv = new ModelAndView("/usuarios/edit");
+            ModelAndView mv = new ModelAndView("admin/edit");
+            mv.addObject("usuario", usuario);
             mv.addObject("usuarioId", usuario.getId());
             mv.addObject("situacoes", Situacao.values());
             mv.addObject("grupos", Grupo.values());
+
+            return mv;
         }
           //não achou um registro na tabela usuario com o id informado
         else{
@@ -99,14 +102,13 @@ public class UsuarioController {
             return new ModelAndView("redirect:/usuarios");
         }
 
-        ModelAndView mv = new ModelAndView("/usuarios/edit");
-        return mv;
+
     }
 
     @PostMapping("/{id}")
     public ModelAndView update(@PathVariable Long id,@Valid RequisicaoNovoUsuarioDTO requisicao, BindingResult result){
         if(result.hasErrors()){
-            ModelAndView mv = new ModelAndView("/usuarios/edit");
+            ModelAndView mv = new ModelAndView("admin/edit");
             mv.addObject("situacoes", Situacao.values());
             mv.addObject("grupos", Grupo.values());
             return mv;
@@ -120,7 +122,7 @@ public class UsuarioController {
                 usuario.setSituacao(Situacao.ATIVO);
                 this.usuarioRepository.save(usuario);
 
-                return new ModelAndView("redirect:/usuarios" + usuario.getId());
+                return new ModelAndView("redirect:/usuarios");
                 //não achou um registro na tabela usuario com o id informado
             }else{
                     System.out.println("Nao Achaou o Usuario de ID: "+id);

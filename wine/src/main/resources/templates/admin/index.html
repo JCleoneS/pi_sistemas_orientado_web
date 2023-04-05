@@ -13,6 +13,7 @@
                 <tr>
                     <th scope="col">ID</th>
                     <th scope="col">Nome</th>
+                    <th scope="col">CPF</th>
                     <th scope="col">E-mail</th>
                     <th scope="col">Situação</th>
                     <th scope="col">Grupo</th>
@@ -27,6 +28,7 @@
                 <tr th:each="usuario : ${usuarios}">
                     <th class="col-1" scope="row" th:text="${usuario.getId()}">#</th>
                     <td class="col-2" th:text="${usuario.nome}">#</td>
+                    <td class="col-2" th:text="${usuario.cpf}">#</td>
                     <td class="col-2" th:text="${usuario.email}">#</td>
                     <td class="col-2" th:text="${usuario.situacao.toString()}">#</td>
                     <td class="col-4" th:text="${usuario.grupo.toString()}">#</td>
