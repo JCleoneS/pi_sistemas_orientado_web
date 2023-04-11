@@ -84,10 +84,37 @@ public class UsuarioController {
 
     @GetMapping("/{id}/inativar")
     public ModelAndView inativar(Usuario requisicao) {
+
+        List<Usuario> usuarios = usuarioRepository.findAll();
+
+        boolean contemAdminAtivo = false;
+
+        for (Usuario usuario : usuarios) {
+            if(!requisicao.getId().equals(usuario.getId()) && usuario.getGrupo().equals(Grupo.ADMIN) && usuario.getSituacao().equals(Situacao.ATIVO)) {
+                contemAdminAtivo = true;
+                break;
+            }
+        }
+
+        if (contemAdminAtivo) {
+            Optional<Usuario> optional = usuarioRepository.findById(requisicao.getId());
+            if (optional.isPresent()) {
+                Usuario usuario = optional.get();
+                usuario.setSituacao(Situacao.INATIVO);
+                usuarioRepository.save(usuario);
+            }
+        }
+        ModelAndView mv = new ModelAndView("admin/index");
+        mv.addObject("usuarios", usuarioRepository.findAll());
+        return mv;
+    }
+
+    @GetMapping("/{id}/ativar")
+    public ModelAndView ativar(Usuario requisicao) {
         Optional<Usuario> optional = usuarioRepository.findById(requisicao.getId());
         if (optional.isPresent()) {
             Usuario usuario = optional.get();
-            usuario.setSituacao(Situacao.INATIVO);
+            usuario.setSituacao(Situacao.ATIVO);
             usuarioRepository.save(usuario);
         }
         ModelAndView mv = new ModelAndView("admin/index");

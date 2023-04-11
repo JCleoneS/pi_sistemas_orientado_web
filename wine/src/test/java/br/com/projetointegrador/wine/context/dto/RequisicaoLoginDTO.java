@@ -1,5 +1,6 @@
 package br.com.projetointegrador.wine.context.dto;
 import br.com.projetointegrador.wine.context.model.Usuario;
+import br.com.projetointegrador.wine.context.validacao.ValidaUsuarioAtivo;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -7,6 +8,7 @@ import jakarta.validation.constraints.NotBlank;
 public class RequisicaoLoginDTO {
     @NotBlank
     @Email
+    @ValidaUsuarioAtivo
     @Column(nullable = false, unique = true)
     private String email;
     @NotBlank
