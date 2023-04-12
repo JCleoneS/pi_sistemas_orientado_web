@@ -24,3 +24,6 @@ let search = document.querySelector('.search-box');
 document.querySelector('#search-icon').onclick = () => {
     search.classList.toggle('active');
 }
+
+function setTwoNumberDecimal(event) {
+    this.value = parseDouble(this.value).toFixed(2);

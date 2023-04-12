@@ -69,6 +69,18 @@ public class ProdutoController {
         this.produtoRepository.save(produto);
         return new ModelAndView("redirect:/produtos");
     }
+    @GetMapping("/{cod}/deletar")
+    public ModelAndView inativar(Produto requisicao) {
+        Optional<Produto> optional = produtoRepository.findById(requisicao.getCod());
+        if (optional.isPresent()) {
+            Produto produto = optional.get();
+            produtoRepository.deleteById(requisicao.getCod());
+            return new ModelAndView("redirect:/produtos");
+        }
+        ModelAndView mv = new ModelAndView("admin/index");
+        mv.addObject("usuarios", produtoRepository.findAll());
+        return mv;
+    }
 
     @GetMapping("/{cod}/edit")
     public ModelAndView edit(@PathVariable Long cod, RequisicaoNovoProdutoDTO requisicaoNovoProdutoDTO){
