@@ -39,13 +39,18 @@
                     <td class="col-2" th:text="${usuario.situacao.toString()}">#</td>
                     <td class="col-4" th:text="${usuario.grupo.toString()}">#</td>
                     <td class="col-1">
-                        <form action="#" th:action="@{/usuarios/__${usuario.id}__/editar}" method="get">
-                            <button type="submit" class="btn btn-link">Editar</button>
+                        <form th:if="${usuario.situacao.toString() == 'ATIVO'}"
+                              action="#" th:action="@{/usuarios/__${usuario.id}__/inativar}" method="get">
+                            <button type="submit" class="btn btn-link">Inativar</button>
+                        </form>
+                        <form th:if="${usuario.situacao.toString() == 'INATIVO'}"
+                              action="#" th:action="@{/usuarios/__${usuario.id}__/ativar}" method="get">
+                            <button type="submit" class="btn btn-link">Ativar</button>
                         </form>
                     </td>
                     <td class="col-1">
-                        <form action="#" th:action="@{/usuarios/__${usuario.id}__/inativar}" method="get">
-                            <button type="submit" class="btn btn-link">Inativar</button>
+                        <form action="#" th:action="@{/usuarios/__${usuario.id}__/editar}" method="get">
+                            <button type="submit" class="btn btn-link">Editar</button>
                         </form>
                     </td>
                 </tr>
