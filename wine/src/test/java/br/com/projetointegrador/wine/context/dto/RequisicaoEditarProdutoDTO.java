@@ -1,7 +1,9 @@
 package br.com.projetointegrador.wine.context.dto;
 
 import br.com.projetointegrador.wine.context.model.Categoria;
+import br.com.projetointegrador.wine.context.model.Grupo;
 import br.com.projetointegrador.wine.context.model.Imagem;
+import br.com.projetointegrador.wine.context.model.Situacao;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -31,6 +33,14 @@ public class RequisicaoEditarProdutoDTO {
 
     @Column(nullable = false)
     private double avaliacao;
+
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private Grupo grupo;
+
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private Situacao situacao;
 
     @OneToMany(mappedBy = "produto", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Imagem> imagens = new ArrayList<>();
@@ -82,6 +92,14 @@ public class RequisicaoEditarProdutoDTO {
     public double getAvaliacao() {return avaliacao;}
 
     public void setAvaliacao(double avaliacao) {this.avaliacao = avaliacao;}
+
+    public Grupo getGrupo() {return grupo;}
+
+    public void setGrupo(Grupo grupo) {this.grupo = grupo;}
+
+    public Situacao getSituacao() {return situacao;}
+
+    public void setSituacao(Situacao situacao) {this.situacao = situacao;}
 
     public List<Imagem> getImagens() {return imagens;}
 

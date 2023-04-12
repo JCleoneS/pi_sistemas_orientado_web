@@ -32,14 +32,22 @@
           <td class="col-4" th:text="${produto.quantidade}">#</td>
           <td class="col-4" th:text="${produto.preco}">#</td>
           <td class="col-1">
+            <form th:if="${produto.situacao.toString() == 'ATIVO'}"
+                  action="#" th:action="@{/produtos/__${produto.codigo}__/inativar}" method="get"
+                  onsubmit="return confirm('Tem certeza que deseja inativar o produto?')">
+              <button type="submit" class="btn btn-link">Inativar</button>
+            </form>
+            <form th:if="${produto.situacao.toString() == 'INATIVO'}"
+                  action="#" th:action="@{/produtos/__${produto.codigo}__/ativar}" method="get"
+                  onsubmit="return confirm('Tem certeza que deseja ativar o produto?')">
+              <button type="submit" class="btn btn-link">Ativar</button>
+            </form>
+          </td>
+          <td class="col-1">
             <form action="#" th:action="@{/produtos/__${produto.codigo}__/edit}" method="get">
               <button type="submit" class="btn btn-link">Editar</button>
             </form>
           </td>
-          <td class="col-1">
-            <form action="#" th:action="@{/produtos/__${produto.codigo}__/deletar}" method="get">
-              <button type="submit" class="btn btn-link">Deletar</button>
-            </form>
           </td>
           <td class="col-1">
         </tr>
