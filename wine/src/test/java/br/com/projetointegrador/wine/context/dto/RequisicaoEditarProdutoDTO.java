@@ -2,7 +2,6 @@ package br.com.projetointegrador.wine.context.dto;
 
 import br.com.projetointegrador.wine.context.model.Categoria;
 import br.com.projetointegrador.wine.context.model.Grupo;
-import br.com.projetointegrador.wine.context.model.Imagem;
 import br.com.projetointegrador.wine.context.model.Situacao;
 import jakarta.persistence.*;
 
@@ -41,9 +40,6 @@ public class RequisicaoEditarProdutoDTO {
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private Situacao situacao;
-
-    @OneToMany(mappedBy = "produto", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Imagem> imagens = new ArrayList<>();
 
     public Long getCodigo() {
         return codigo;
@@ -101,7 +97,4 @@ public class RequisicaoEditarProdutoDTO {
 
     public void setSituacao(Situacao situacao) {this.situacao = situacao;}
 
-    public List<Imagem> getImagens() {return imagens;}
-
-    public void setImagens(List<Imagem> imagens) {this.imagens = imagens;}
 }

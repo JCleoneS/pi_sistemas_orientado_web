@@ -31,14 +31,7 @@ public class Produto {
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
-    private Grupo grupo;
-    @Column(nullable = false)
-    @Enumerated(EnumType.STRING)
     private Situacao situacao;
-
-    @OneToMany(mappedBy = "produto", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Imagem> imagens = new ArrayList<>();
-
 
     public Produto(){ }
 
@@ -90,15 +83,8 @@ public class Produto {
 
     public void setAvaliacao(double avaliacao) {this.avaliacao = avaliacao;}
 
-    public Grupo getGrupo() {return grupo;}
-
-    public void setGrupo(Grupo grupo) {this.grupo = grupo;}
-
     public Situacao getSituacao() {return situacao;}
 
     public void setSituacao(Situacao situacao) {this.situacao = situacao;}
 
-    public List<Imagem> getImagens() {return imagens;}
-
-    public void setImagens(List<Imagem> imagens) {this.imagens = imagens;}
 }

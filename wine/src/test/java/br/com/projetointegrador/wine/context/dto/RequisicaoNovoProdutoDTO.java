@@ -44,10 +44,6 @@ public class RequisicaoNovoProdutoDTO {
     @Enumerated(EnumType.STRING)
     private Situacao situacao;
 
-    @OneToMany(mappedBy = "produto", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Imagem> imagens = new ArrayList<>();
-
-
     public RequisicaoNovoProdutoDTO(){ }
 
     public Long getCodigo() {return codigo;}
@@ -104,9 +100,6 @@ public class RequisicaoNovoProdutoDTO {
 
     public void setSituacao(Situacao situacao) {this.situacao = situacao;}
 
-    public List<Imagem> getImagens() {return imagens;}
-
-    public void setImagens(List<Imagem> imagens) {this.imagens = imagens;}
 
     public Produto toProduto(){
         Produto produto = new Produto();
@@ -116,7 +109,6 @@ public class RequisicaoNovoProdutoDTO {
         produto.setPreco(this.preco);
         produto.setQuantidade(this.quantidade);
         produto.setAvaliacao(this.avaliacao);
-        produto.setImagens(this.imagens);
         return produto;
     }
 
@@ -127,7 +119,6 @@ public class RequisicaoNovoProdutoDTO {
         produto.setPreco(this.preco);
         produto.setQuantidade(this.quantidade);
         produto.setAvaliacao(this.avaliacao);
-        produto.setImagens(this.imagens);
         return produto;
     }
 
@@ -138,6 +129,5 @@ public class RequisicaoNovoProdutoDTO {
         this.preco = produto.getPreco();
         this.quantidade = produto.getQuantidade();
         this.avaliacao = produto.getAvaliacao();
-        this.imagens = produto.getImagens();
     }
 }

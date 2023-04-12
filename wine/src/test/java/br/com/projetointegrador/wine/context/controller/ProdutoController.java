@@ -66,31 +66,32 @@ public class ProdutoController {
             return mv;
         }
         Produto produto = requisicao.toProduto();
-        this.produtoRepository.save(produto);
+        produto.setSituacao(Situacao.ATIVO);
+        produtoRepository.save(produto);
         return new ModelAndView("redirect:/produtos");
     }
-    @GetMapping("/{codigo}/inativar")
-    public ModelAndView inativar(Produto requisicao) {
-        List<Produto> produtos = produtoRepository.findAll();
-        boolean contemAdminAtivo = false;
-        for (Produto produto : produtos) {
-            if(!requisicao.getCodigo().equals(produto.getCodigo()) && produto.getGrupo().equals(Grupo.ADMIN) && produto.getSituacao().equals(Situacao.ATIVO)) {
-                contemAdminAtivo = true;
-                break;
-            }
-        }
-        if (contemAdminAtivo) {
-            Optional<Produto> optional = produtoRepository.findById(requisicao.getCodigo());
-            if (optional.isPresent()) {
-                Produto produto = optional.get();
-                produto.setSituacao(Situacao.INATIVO);
-                produtoRepository.save(produto);
-            }
-        }
-        ModelAndView mv = new ModelAndView("admin/index");
-        mv.addObject("usuarios", produtoRepository.findAll());
-        return mv;
-    }
+//    @GetMapping("/{codigo}/inativar")
+//    public ModelAndView inativar(Produto requisicao) {
+//        List<Produto> produtos = produtoRepository.findAll();
+//        boolean contemAdminAtivo = false;
+//        for (Produto produto : produtos) {
+//            if(!requisicao.getCodigo().equals(produto.getCodigo()) && produto.getGrupo().equals(Grupo.ADMIN) && produto.getSituacao().equals(Situacao.ATIVO)) {
+//                contemAdminAtivo = true;
+//                break;
+//            }
+//        }
+//        if (contemAdminAtivo) {
+//            Optional<Produto> optional = produtoRepository.findById(requisicao.getCodigo());
+//            if (optional.isPresent()) {
+//                Produto produto = optional.get();
+//                produto.setSituacao(Situacao.INATIVO);
+//                produtoRepository.save(produto);
+//            }
+//        }
+//        ModelAndView mv = new ModelAndView("admin/index");
+//        mv.addObject("usuarios", produtoRepository.findAll());
+//        return mv;
+//    }
 
     @GetMapping("/{codigo}/ativar")
     public ModelAndView ativar(Produto requisicao) {
