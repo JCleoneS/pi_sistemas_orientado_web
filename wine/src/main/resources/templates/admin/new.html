@@ -7,7 +7,7 @@
     <form th:object="${requisicaoNovoUsuarioDTO}" action="/usuarios" method="POST">
         <div class="form-group">
             <label class="form-label">CPF</label>
-            <input class="form-control" th:errorclass="is-invalid" type="text" th:field="*{cpf}">
+            <input id="cpf" class="form-control" th:errorclass="is-invalid" type="text" th:field="*{cpf}">
             <div class="invalid-feedback" th:errors="*{cpf}"></div>
         </div>
         <div class="form-group">
@@ -22,7 +22,14 @@
         </div>
         <div class="form-group">
             <label class="form-label">Senha</label>
-            <input type="password" class="form-control"  th:errorclass="is-invalid" th:field="*{senha}">
+            <div class="input-group">
+                <input type="password" class="form-control" th:errorclass="is-invalid" th:field="*{senha}">
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" type="button" id="show-password-toggle">
+                        <span class="fa fa-eye-slash"></span>
+                    </button>
+                </div>
+            </div>
             <div class="invalid-feedback" th:errors="*{senha}"></div>
         </div>
         <div class="form-group">
@@ -35,5 +42,26 @@
         <button type="submit" class="btn btn-primary">Salvar</button>
     </form>
 </div>
+<script>
+  const togglePassword = document.querySelector('#show-password-toggle');
+  const passwordInput = document.querySelector('input[type="password"]');
+
+  togglePassword.addEventListener('click', function (e) {
+    // toggle the type attribute
+    const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+    passwordInput.setAttribute('type', type);
+
+    // toggle the eye slash icon
+    this.querySelector('.fa').classList.toggle('fa-eye-slash');
+    this.querySelector('.fa').classList.toggle('fa-eye');
+  });
+</script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.6/jquery.inputmask.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#cpf').inputmask("999.999.999-99");
+    });
+</script>
 </body>
 </html>

@@ -7,6 +7,14 @@
     <div class="row">
     </div>
     <div class="row">
+        <form action="#" th:action="@{/usuarios/buscar}" method="get">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Pesquisar usuário por nome" name="nome">
+                <div class="input-group-append">
+                    <button type="submit" class="btn btn-outline-secondary">Buscar</button>
+                </div>
+            </div>
+        </form>
         <div class="col-12">
             <table class="table table-hover">
                 <thead>
@@ -36,11 +44,8 @@
                         </form>
                     </td>
                     <td class="col-1">
-                        <form th:if="${usuario.situacao.toString() == 'ATIVO'}" action="#" th:action="@{/usuarios/__${usuario.id}__/inativar}" method="get">
+                        <form action="#" th:action="@{/usuarios/__${usuario.id}__/inativar}" method="get">
                             <button type="submit" class="btn btn-link">Inativar</button>
-                        </form>
-                        <form th:if="${usuario.situacao.toString() == 'INATIVO'}" action="#" th:action="@{/usuarios/__${usuario.id}__/ativar}" method="get">
-                            <button type="submit" class="btn btn-link">Ativar</button>
                         </form>
                     </td>
                 </tr>
@@ -49,7 +54,6 @@
         </div>
     </div>
     <div class="row">
-        <!--        <a href="/usuarios/new">Novo usuário</a>-->
         <form action="#" th:action="@{usuarios/new}" method="get">
             <button type="submit" class="btn btn-link">Novo usuário</button>
         </form>

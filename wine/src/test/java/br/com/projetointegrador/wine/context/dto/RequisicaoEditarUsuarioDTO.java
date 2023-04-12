@@ -10,7 +10,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 @Entity
-public class RequisicaoNovoUsuarioDTO {
+public class RequisicaoEditarUsuarioDTO {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -21,13 +21,9 @@ public class RequisicaoNovoUsuarioDTO {
     @NotNull
     @NotBlank
     @Column(nullable = false, unique = true)
-    @ValidarCpf
-    @CpfUnico
     private String cpf;
     @NotNull
     @NotBlank
-    @Column(nullable = false, unique = true)
-    @EmailUnico
     private String email;
     @NotNull
     @NotBlank
@@ -40,7 +36,7 @@ public class RequisicaoNovoUsuarioDTO {
     @Enumerated(EnumType.STRING)
     private Situacao situacao;
 
-    public RequisicaoNovoUsuarioDTO() { }
+    public RequisicaoEditarUsuarioDTO() { }
 
     public Long getId() {
         return id;
