@@ -1,51 +1,43 @@
 package br.com.projetointegrador.wine.context.dto;
+
+import br.com.projetointegrador.wine.context.model.Categoria;
 import br.com.projetointegrador.wine.context.model.Imagem;
 import jakarta.persistence.*;
-import br.com.projetointegrador.wine.context.model.Categoria;
-import br.com.projetointegrador.wine.context.model.Produto;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class RequisicaoNovoProdutoDTO {
+public class RequisicaoEditarProdutoDTO {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long codigo;
-    @NotNull
-    @NotBlank
     @Column(nullable = false)
     private String nome;
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private Categoria tipo;
-    @NotNull
-    @NotBlank
+
     @Column(nullable = false)
     private String descricao;
-    @NotNull
 
     @Column(nullable = false)
     private double preco;
-    @NotNull
+
     @Column(nullable = false)
     private int quantidade;
 
-    @NotNull
     @Column(nullable = false)
     private double avaliacao;
 
     @OneToMany(mappedBy = "produto", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Imagem> imagens = new ArrayList<>();
 
-
-    public RequisicaoNovoProdutoDTO(){ }
-
-    public Long getCodigo() {return codigo;}
+    public Long getCodigo() {
+        return codigo;
+    }
 
     public void setCodigo(Long codigo) {this.codigo = codigo;}
 
@@ -94,37 +86,4 @@ public class RequisicaoNovoProdutoDTO {
     public List<Imagem> getImagens() {return imagens;}
 
     public void setImagens(List<Imagem> imagens) {this.imagens = imagens;}
-
-    public Produto toProduto(){
-        Produto produto = new Produto();
-        produto.setNome(this.nome);
-        produto.setTipo(this.tipo);
-        produto.setDescricao(this.descricao);
-        produto.setPreco(this.preco);
-        produto.setQuantidade(this.quantidade);
-        produto.setAvaliacao(this.avaliacao);
-        produto.setImagens(this.imagens);
-        return produto;
-    }
-
-    public Produto toProduto(Produto produto){
-        produto.setNome(this.nome);
-        produto.setTipo(this.tipo);
-        produto.setDescricao(this.descricao);
-        produto.setPreco(this.preco);
-        produto.setQuantidade(this.quantidade);
-        produto.setAvaliacao(this.avaliacao);
-        produto.setImagens(this.imagens);
-        return produto;
-    }
-
-    public void fromProduto(Produto produto){
-        this.nome = produto.getNome();
-        this.tipo = produto.getTipo();
-        this.descricao = produto.getDescricao();
-        this.preco = produto.getPreco();
-        this.quantidade = produto.getQuantidade();
-        this.avaliacao = produto.getAvaliacao();
-        this.imagens = produto.getImagens();
-    }
 }

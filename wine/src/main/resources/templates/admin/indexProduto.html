@@ -14,6 +14,7 @@
           <th scope="col">COD</th>
           <th scope="col">Nome</th>
           <th scope="col">Tipo</th>
+          <th scope="col">Avaliação</th>
           <th scope="col">Descrição</th>
           <th scope="col">Qtde</th>
           <th scope="col">Preço R$</th>
@@ -24,19 +25,19 @@
         </thead>
         <tbody>
         <tr th:each="produto : ${produtos}">
-          <th class="col-1" scope="row" th:text="${produto.getCod()}">#</th>
+          <th class="col-1" scope="row" th:text="${produto.getCodigo()}">#</th>
           <td class="col-2" th:text="${produto.nome}">#</td>
           <td class="col-2" th:text="${produto.tipo.toString()}">#</td>
-          <td class="col-2" th:text="${produto.descri}">#</td>
-          <td class="col-4" th:text="${produto.qtde}">#</td>
+          <td class="col-2" th:text="${produto.descricao}">#</td>
+          <td class="col-4" th:text="${produto.quantidade}">#</td>
           <td class="col-4" th:text="${produto.preco}">#</td>
           <td class="col-1">
-            <form action="#" th:action="@{/produtos/__${produto.cod}__/edit}" method="get">
+            <form action="#" th:action="@{/produtos/__${produto.codigo}__/edit}" method="get">
               <button type="submit" class="btn btn-link">Editar</button>
             </form>
           </td>
           <td class="col-1">
-            <form action="#" th:action="@{/produtos/__${produto.cod}__/deletar}" method="get">
+            <form action="#" th:action="@{/produtos/__${produto.codigo}__/deletar}" method="get">
               <button type="submit" class="btn btn-link">Deletar</button>
             </form>
           </td>

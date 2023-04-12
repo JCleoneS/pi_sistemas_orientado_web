@@ -69,40 +69,45 @@ public class ProdutoController {
         this.produtoRepository.save(produto);
         return new ModelAndView("redirect:/produtos");
     }
-    @GetMapping("/{cod}/deletar")
-    public ModelAndView inativar(Produto requisicao) {
-        Optional<Produto> optional = produtoRepository.findById(requisicao.getCod());
-        if (optional.isPresent()) {
-            Produto produto = optional.get();
-            produtoRepository.deleteById(requisicao.getCod());
-            return new ModelAndView("redirect:/produtos");
-        }
-        ModelAndView mv = new ModelAndView("admin/index");
-        mv.addObject("usuarios", produtoRepository.findAll());
-        return mv;
-    }
+//    @GetMapping("/{codigo}/inativar")
+//    public ModelAndView inativar(Produto requisicao) {
+//        List<Produto> produtos = produtoRepository.findAll();
+//        boolean contemAdminAtivo = false;
+//        for (Usuario usuario : usuarios) {
+//            if(!requisicao.getCodigo().equals(usuario.getId()) && usuario.getGrupo().equals(Grupo.ADMIN) && usuario.getSituacao().equals(Situacao.ATIVO)) {
+//                contemAdminAtivo = true;
+//                break;
+//            }
+//        }
+//        if (contemAdminAtivo) {
+//            Optional<Usuario> optional = usuarioRepository.findById(requisicao.getId());
+//            if (optional.isPresent()) {
+//                Usuario usuario = optional.get();
+//                usuario.setSituacao(Situacao.INATIVO);
+//                usuarioRepository.save(usuario);
+//            }
+//        }
+//        ModelAndView mv = new ModelAndView("admin/index");
+//        mv.addObject("usuarios", usuarioRepository.findAll());
+//        return mv;
+//    }
 
-    @GetMapping("/{cod}/edit")
-    public ModelAndView edit(@PathVariable Long cod, RequisicaoNovoProdutoDTO requisicaoNovoProdutoDTO){
-        Optional<Produto> optional = this.produtoRepository.findById(cod);
+    @GetMapping("/{codigo}/edit")
+    public ModelAndView edit(@PathVariable Long codigo, RequisicaoNovoProdutoDTO requisicaoNovoProdutoDTO){
+        Optional<Produto> optional = this.produtoRepository.findById(codigo);
 
         if (optional.isPresent()){
             Produto produto = optional.get();
-//            requisicaoNovoProdutoDTO.setNome();
-//            requisicaoNovoProdutoDTO.setTipo();
-//            requisicaoNovoProdutoDTO.setDescri();
-//            requisicaoNovoProdutoDTO.setPreco();
-//            requisicaoNovoProdutoDTO.setQtde();
             ModelAndView mv = new ModelAndView("admin/edit-produto");
             mv.addObject("produto", produto);
-            mv.addObject("produtoCod", produto.getCod());
+            mv.addObject("produtoCod", produto.getCodigo());
             mv.addObject("categorias", Categoria.values());
 
             return mv;
         }
         //não achou um registro na tabela usuario com o id informado
         else{
-            System.out.println("Nao achou o produto de codigo: "+cod);
+            System.out.println("Nao achou o produto de codigo: "+codigo);
             return new ModelAndView("redirect:/produtos");
         }
 
@@ -110,14 +115,14 @@ public class ProdutoController {
 
     }
 
-    @PostMapping("/{cod}")
-    public ModelAndView update(@PathVariable Long cod,@Valid RequisicaoNovoProdutoDTO requisicao, BindingResult result){
+    @PostMapping("/{codigo}")
+    public ModelAndView update(@PathVariable Long codigo,@Valid RequisicaoNovoProdutoDTO requisicao, BindingResult result){
         if(result.hasErrors()){
             ModelAndView mv = new ModelAndView("admin/edit-produto");
             mv.addObject("categorias", Categoria.values());
             return mv;
         }else{
-            Optional<Produto> optional = this.produtoRepository.findById(cod);
+            Optional<Produto> optional = this.produtoRepository.findById(codigo);
 
             if (optional.isPresent()) {
                 Produto produto = requisicao.toProduto(optional.get());
@@ -126,7 +131,7 @@ public class ProdutoController {
                 return new ModelAndView("redirect:/produtos");
                 //não achou um registro na tabela usuario com o id informado
             }else{
-                System.out.println("Nao achou o produto de codigo: "+cod);
+                System.out.println("Nao achou o produto de codigo: "+codigo);
                 return new ModelAndView("redirect:/produtos");
 
             }

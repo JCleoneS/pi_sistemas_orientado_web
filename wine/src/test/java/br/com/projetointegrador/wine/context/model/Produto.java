@@ -1,12 +1,15 @@
 package br.com.projetointegrador.wine.context.model;
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 public class Produto {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long cod;
+    private Long codigo;
     @Column(nullable = false)
     private String nome;
 
@@ -15,22 +18,28 @@ public class Produto {
     private Categoria tipo;
 
     @Column(nullable = false)
-    private String descri;
+    private String descricao;
 
     @Column(nullable = false)
     private double preco;
 
     @Column(nullable = false)
-    private int qtde;
+    private int quantidade;
+
+    @Column(nullable = false)
+    private double avaliacao;
+
+    @OneToMany(mappedBy = "produto", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Imagem> imagens = new ArrayList<>();
 
 
     public Produto(){ }
 
-    public Long getCod() {
-        return cod;
+    public Long getCodigo() {
+        return codigo;
     }
 
-    public void setCod(Long cod) {this.cod = cod;}
+    public void setCodigo(Long codigo) {this.codigo = codigo;}
 
     public String getNome() {return nome; }
 
@@ -46,12 +55,12 @@ public class Produto {
         this.tipo = tipo;
     }
 
-    public String getDescri() {
-        return descri;
+    public String getDescricao() {
+        return descricao;
     }
 
-    public void setDescri(String descri) {
-        this.descri = descri;
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
 
     public double getPreco() {
@@ -62,11 +71,19 @@ public class Produto {
         this.preco = preco;
     }
 
-    public int getQtde() {
-        return qtde;
+    public int getQuantidade() {
+        return quantidade;
     }
 
-    public void setQtde(int qtde) {
-        this.qtde = qtde;
+    public void setQuantidade(int quantidade) {
+        this.quantidade = quantidade;
     }
+
+    public double getAvaliacao() {return avaliacao;}
+
+    public void setAvaliacao(double avaliacao) {this.avaliacao = avaliacao;}
+
+    public List<Imagem> getImagens() {return imagens;}
+
+    public void setImagens(List<Imagem> imagens) {this.imagens = imagens;}
 }
