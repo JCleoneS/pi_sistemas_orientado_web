@@ -1,9 +1,6 @@
 package br.com.projetointegrador.wine.context.model;
 import jakarta.persistence.*;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Entity
 public class Produto {
 
