@@ -1,4 +1,5 @@
 package br.com.projetointegrador.wine.context.controller;
+import br.com.projetointegrador.wine.context.dto.RequisicaoEditarProdutoDTO;
 import br.com.projetointegrador.wine.context.dto.RequisicaoNovoProdutoDTO;
 import br.com.projetointegrador.wine.context.model.*;
 import br.com.projetointegrador.wine.context.repository.ProdutoRepository;
@@ -17,16 +18,7 @@ public class ProdutoController {
 
     @Autowired
     private ProdutoRepository produtoRepository;
-//    Eu quero, eu posso: Listar os produtos da loja
-//    Para que: Possível incluir, alterar, visualizar e habilitar/inabilitar o produto
-//    Critérios de aceite:
-//    Após o login do administrador, a tela principal do backoffice terá o botão de Listar Produtos.
-//    Ao clicar no botão haverá a abertura da tela de produtos e ela, por default, deve fazer a procura de todos os produtos e listar os últimos (decrescente) produtos inseridos na base.
-//    Um campo de busca de produto, com busca parcial - Ex. smart (vai trazer tudo que conter smart no nome do produto.
-//    A lista deve apresentar o código do produto, o nome do produto, a quantidade em estoque, o valor e o status (ativo ou desativado)
-//    Terá um botão para chamar a tela de cadastro de produto (representado por um sinal de +)
-//    Listará no máximo 10 produtos na página e criará uma barra de paginação.
-//    Para cada produto um ícone/link com a ação permitida para o produto (alterar, inativar, reativar, visualizar)
+
     @GetMapping("")
     public ModelAndView prdIndex(){
         List<Produto> produtos = produtoRepository.findAll();
@@ -34,18 +26,6 @@ public class ProdutoController {
         mv.addObject("produtos", produtos);
         return mv;
     }
-
-//    Eu quero, eu posso: Cadastrar um novo produto e suas imagem
-//    Para que: Possa disponibilizar o produto na loja
-//    Critérios de aceite:
-//    Incluir dados de nome de produto (max 200 caracteres), avaliação (de 1 a 5 variando de 0,5 em 0,5), Descrição Detalhadas (2000 caracteres), preço produto (valor monetário) 2 casas decimais, qtd estoque (valor inteiro)
-//    Incluir e associar multiplas imagens ao mesmo produto (não limitado).
-//    Nas imagens, uma delas tem que ser definida como padrão.
-//    A imagem tem que ser carregada antes no diretório do projeto (pelo botão procurar).
-//    Ao carregar a imagem o sistema deve trocar o nome e armazenar o caminho com o novo nome no banco de dados.
-//    Botão salvar, salva o produto e as referencias das imagens no banco de dados e volta para a tela de lista de produto
-//    Botão cancelar, volta para a tela de lista de  produto
-//    Os dados  tem que ser refletidas no banco de dados
 
 
     @GetMapping("/novo-produto")
@@ -135,6 +115,27 @@ public class ProdutoController {
         }
     }
 
+    @PostMapping("/edit")
+    public ModelAndView editar(@Valid RequisicaoEditarProdutoDTO requisicao) {
+        Optional<Produto> produtoOptional = produtoRepository.findById(requisicao.getCodigo());
+        if (produtoOptional.isPresent()) {
+            Produto produto = produtoOptional.get();
+            produto.setCodigo(requisicao.getCodigo());
+            produto.setNome(requisicao.getNome());
+            produto.setTipo(requisicao.getTipo());
+            produto.setDescricao(requisicao.getDescricao());
+            produto.setAvaliacao(requisicao.getAvaliacao());
+            produto.setPreco(requisicao.getPreco());
+            produto.setQuantidade(requisicao.getQuantidade());
+            produto.setSituacao(requisicao.getSituacao());
+            produtoRepository.save(produto);
+            return new ModelAndView("redirect:/produtos");
+        }
+        return new ModelAndView("redirect:/produtos");
+
+
+    }
+
     @PostMapping("/{codigo}")
     public ModelAndView update(@PathVariable Long codigo,@Valid RequisicaoNovoProdutoDTO requisicao, BindingResult result){
         if(result.hasErrors()){
@@ -155,6 +156,28 @@ public class ProdutoController {
                 return new ModelAndView("redirect:/produtos");
 
             }
+        }
+    }
+    @GetMapping("/{codigo}/produto-detail")
+    public ModelAndView prdDetail(@PathVariable Long codigo, RequisicaoNovoProdutoDTO requisicaoNovoProdutoDTO) {
+        Optional<Produto> optional = this.produtoRepository.findById(codigo);
+
+        if (optional.isPresent()){
+            Produto produto = optional.get();
+            ModelAndView mv = new ModelAndView("admin/produto-detail");
+            mv.addObject("produto", produto);
+            mv.addObject("produtoCod", produto.getCodigo());
+            mv.addObject("nome", produto.getNome());
+            mv.addObject("avaliacao", produto.getAvaliacao());
+            mv.addObject("descricao", produto.getDescricao());
+            mv.addObject("preco", produto.getPreco());
+
+            return mv;
+        }
+        //não achou um registro na tabela usuario com o id informado
+        else{
+            System.out.println("Nao achou o produto de codigo: "+codigo);
+            return new ModelAndView("redirect:/produtos");
         }
     }
 }

@@ -2,167 +2,29 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{/admin/fragmentos :: head}"></head>
 <body>
-<header th:replace="~{/admin/fragmentos :: header}">
-<!--    <a href="#" class="logo"></i><i class='bx bxs-wine'></i>Wine Store</a>-->
+<header th:replace="~{/admin/fragmentos :: header}"></header>
 
-<!--    <i class='bx bx-menu' id="menu-icon"></i>-->
-
-<!--    <ul class="navbar">-->
-<!--        <li><a href="#home">Home</a></li>-->
-<!--        <li><a href="#sobre">Sobre</a></li>-->
-<!--        <li><a href="#produtos">Produtos</a></li>-->
-<!--        <li><a href="#categoria">Categoria</a></li>-->
-<!--        <li><a href="#usuarios">Usuarios</a></li>-->
-<!--    </ul>-->
-
-<!--    <div class="header-icon">-->
-<!--        <i class='bx bx-search' id="search-icon"></i>-->
-<!--        <i class='bx bxs-cart-alt' ><span>0</span></i>-->
-<!--        <i class='bx bx-power-off' ></i>-->
-<!--    </div>-->
-
-<!--    <div class="search-box">-->
-<!--        <input type="search" name="" id="" placeholder="Pesquisar aqui...">-->
-<!--    </div>-->
-</header>
 <section class="home" id="home">
-    <div class="home-text">
-        <h3>50% desconto</h3>
-        <h1>Kit de <span>Vinhos</span> conjunto Soalheiro <span>500 Anos</span></h1>
-        <p>A Santa Casa da Misericórdia de Melgaço, instituição mais antiga do concelho,"Alvarinho de Melgaço"
-            uma coleção comemorativa dos 500 anos desta instituição secular, com forte cariz de apoio social</p>
-        <a href="#" class="btn">Comprar Agora</a>
-    </div>
-
-    <div class="home-img">
-        <img th:src="@{/admin/images/home.png}" alt="">
-    </div>
-</section>
-<section class="sobre" id="sobre">
-    <div class="sobre-img">
-        <img th:src="@{/admin/images/sobre.jpg}" alt="">
-    </div>
-    <div class="sobre-text">
-        <h2>Sobre nós</h2>
-        <p>A Wine Store começou como um sonho de compartilhar nossa paixão por vinhos com o mundo. Com anos de experiência e conhecimento, decidimos abrir nossa própria loja online para oferecer aos nossos clientes uma seleção cuidadosamente selecionada dos melhores vinhos do mundo.</p>
-        <p>Nosso site é fácil de navegar e oferece uma ampla variedade de vinhos para todos os gostos e ocasiões.</p>
-        <p>Compre conosco e experimente o melhor que o mundo do vinho tem a oferecer!</p>
-        <a href="#" class="btn">Saiba Mais</a>
-    </div>
-</section>
-<section class="produtos" id="produtos">
-    <div class="heading">
-        <h2>Nossos produtos<spam> mais vendidos</spam></h2>
-    </div>
-    <div class="produtos-container">
-        <div class="box">
-            <img th:src="@{/admin/images/P1.png}" alt="">
-            <h2>Vinho Reservado Cabernet</h2>
-            <p>Sauvignon 750ml</p>
-            <span>R$30.90</span>
-            <i class='bx bxs-cart-add'></i>
-        </div>
-        <div class="box">
-            <img th:src="@{/admin/images/P2.png}" alt="">
-            <h2>Vinho El Numerado</h2>
-            <p>Malbec 750ml</p>
-            <span>R$129.90</span>
-            <i class='bx bxs-cart-add'></i>
-        </div>
-        <div class="box">
-            <img th:src="@{/admin/images/P4.png}" alt="">
-            <h2>Naturellle Branco</h2>
-            <p>Suave 750ml</p>
-            <span>R$44.99</span>
-            <i class='bx bxs-cart-add'></i>
-        </div>
-        <div class="box">
-            <img th:src="@{/admin/images/P5.png}" alt="">
-            <h2>Casal Garcia</h2>
-            <p>Rosé 750ml</p>
-            <span>R$59.90</span>
-            <i class='bx bxs-cart-add'></i>
-        </div>
-        <div class="box">
-            <img th:src="@{/admin/images/P3.png}" alt="">
-            <h2>Vinho Casa Perini</h2>
-            <p>Chardonnay 750ml</p>
-            <span>R$76.90</span>
-            <i class='bx bxs-cart-add'></i>
-        </div>
-        <div class="box">
-            <img th:src="@{/admin/images/P6.png}" alt="">
-            <h2>Rose Piscine</h2>
-            <p>Rosé 750ml</p>
-            <span>R$135.90</span>
-            <i class='bx bxs-cart-add'></i>
-        </div>
-    </div>
-</section>
-<section class="categoria" id="categoria">
-    <div class="heading">
-        <h2>Categoria de Vinhos</h2>
-    </div>
-    <div class="categoria-container">
-        <div class="box"></div>
-        <img th:src="@{/admin/images/vinho_tinto.jpg}" alt="">
-        <h2>Vinho Tinto</h2>
-    </div>
-    <div class="categoria-container">
-        <div class="box"></div>
-        <img th:src="@{/admin/images/Vinho_branco.jpg}" alt="">
-        <h2>Vinho Branco</h2>
-    </div>
-    <div class="categoria-container">
-        <div class="box"></div>
-        <img th:src="@{/admin/images/Vinho_rose.jpg}" alt="">
-        <h2>Vinho Rosé</h2>
-    </div>
-    </div>
-</section>
-<section class="newlettert">
-    <h2>Inscreva-se para receber um especial<br>Desconto</h2>
-    <form action="">
-        <input type="email" placeholder="Digite seu e-mail..." required>
-        <input type="submit" value="Inscreva-se" class="email-btn">
-    </form>
-</section>
-<section class="footer">
-    <div class="footer-box">
-
-        <a href="#" class="logo"></i><i class='bx bxs-wine'></i>Wine Store</a>
-        <br><p>lorem ipsum dolor sit amet consectetur adipisicing elit .error. culpa?</p>
-        <div class="social"><br>
-            <a href="#"><i class='bx bxl-facebook'></i></a>
-            <a href="#"><i class='bx bxl-twitter'></i></a>
-            <a href="#"><i class='bx bxl-instagram'></i></a>
-            <a href="#"><i class='bx bxl-youtube'></i></a>
-        </div>
-    </div>
-    <div class="footer-box">
-        <h3>Suporte</h3>
-        <li><a href="#">Produtos</a></li>
-        <li><a href="#">Ajuda</a></li>
-        <li><a href="#">Política de devolução</a></li>
-        <li><a href="#">Termo de uso</a></li>
-    </div>
-    <div class="footer-box">
-        <h3>Ver Guias</h3>
-        <li><a href="#">Pagamentos</a></li>
-        <li><a href="#">Outros Blogs</a></li>
-        <li><a href="#">Outros Parceiros</a></li>
-        <li><a href="#">Compre Agora</a></li>
-    </div>
-    <div class="footer-box">
-        <h3>Contatos</h3>
-        <spam><i class='bx bxs-map'></i>Av. Eng. Eusébio Stevaux, 823<br> Santo Amaro, São Paulo - SP, 04696-000</spam><br>
-        <spam><i class='bx bxs-phone' ></i>(11) 5682-7300</spam><br>
-        <spam><i class='bx bxs-envelope' ></i>wine_store@shop.com</spam><br>
-
-    </div>
-
+  <div class="home-text" th:object="${usuarios}">
+    <h1>Bem Vindo:</h1>
+<!--    <h2 th:text="${usuario.grupo.toString()}">#</h2>-->
+<!--    <h2 th:text="${usuario.nome}">#</h2>-->
+  </div>
 </section>
 
-<script src="main.js"></script>
+<section class="card-group produtos">
+  <div class="card produtos-container box" style="width: 18rem;">
+    <img th:src="@{/admin/images/avatar.png}" class="card-img-top" alt="...">
+    <div class="card-body">
+      <a href="/usuarios" class="btn btn-primary">Gerenciamento de Usuarios</a>
+    </div>
+  </div>
+  <div class="card produtos-container box" style="width: 18rem;">
+    <img th:src="@{/admin/images/avatar.png}" class="card-img-top" alt="...">
+    <div class="card-body">
+      <a href="/produtos" class="btn btn-primary">Gerenciamento de Produtos</a>
+    </div>
+  </div>
+</section>
 </body>
 </html>

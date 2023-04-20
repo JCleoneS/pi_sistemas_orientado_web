@@ -23,7 +23,7 @@
           <th scope="col">Nome</th>
           <th scope="col">Tipo</th>
           <th scope="col">Avaliação</th>
-          <th scope="col">Descrição</th>
+<!--          <th scope="col">Descrição</th>-->
           <th scope="col">Qtde</th>
           <th scope="col">Preço R$</th>
           <th scope="col"></th>
@@ -37,7 +37,7 @@
           <td class="col-2" th:text="${produto.nome}">#</td>
           <td class="col-2" th:text="${produto.tipo.toString()}">#</td>
           <td class="col-2" th:text="${produto.avaliacao}">#</td>
-          <td class="col-2" th:text="${produto.descricao}">#</td>
+<!--          <td class="col-2" th:text="${produto.descricao}">#</td>-->
           <td class="col-4" th:text="${produto.quantidade}">#</td>
           <td class="col-4" th:text="${produto.preco}">#</td>
           <td class="col-1">
@@ -57,6 +57,11 @@
               <button type="submit" class="btn btn-link">Editar</button>
             </form>
           </td>
+          </td>
+          <td class="col-1">
+            <form action="#" th:action="@{/produtos/__${produto.codigo}__/produto-detail}" method="get">
+              <button type="submit" class="btn btn-link">Detalhes</button>
+            </form>
           </td>
           <td class="col-1">
         </tr>
