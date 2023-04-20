@@ -133,9 +133,6 @@ public class ProdutoController {
             System.out.println("Nao achou o produto de codigo: "+codigo);
             return new ModelAndView("redirect:/produtos");
         }
-
-
-
     }
 
     @PostMapping("/{codigo}")

@@ -4,7 +4,7 @@
 <body>
 <header th:replace="~{/admin/fragmentos :: header}"></header>
 <div class="container">
-  <form th:object="${requisicaoNovoProdutoDTO}"  th:action="@{/produtos/{produtoCodigo}(produtoCod = ${produto.codigo})}" method="POST">
+  <form th:object="${requisicaoNovoProdutoDTO}"  th:action="@{/produtos/{produtoCod}(produtoCod = ${produto.codigo})}" method="POST">
     <div class="form-group">
       <label class="form-label">Nome</label>
       <input class="form-control" th:errorclass="is-invalid" type="text" min="0" max="200" th:field="*{nome}">
