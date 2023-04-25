@@ -27,6 +27,14 @@ public class ProdutoController {
         return mv;
     }
 
+    @GetMapping("/catalogo")
+    public ModelAndView prdCatalogo(){
+        List<Produto> produtos = produtoRepository.findAll();
+        ModelAndView mv = new ModelAndView("admin/catalogo");
+        mv.addObject("produtos", produtos);
+        return mv;
+    }
+
 
     @GetMapping("/novo-produto")
     public ModelAndView newProduto(RequisicaoNovoProdutoDTO requisicaoNovoProdutoDTO) {
@@ -55,6 +63,16 @@ public class ProdutoController {
             produtos = produtoRepository.findByNomeContainingIgnoreCase(nome);
         }
         ModelAndView mv = new ModelAndView("admin/indexProduto");
+        mv.addObject("produtos", produtos);
+        return mv;
+    }
+    @GetMapping("/buscarCatalogo")
+    public ModelAndView buscarProdutoPorNome1(@RequestParam("nome") String nome) {
+        List<Produto> produtos = produtoRepository.findAll();
+        if(nome != null && !nome.equals("")) {
+            produtos = produtoRepository.findByNomeContainingIgnoreCase(nome);
+        }
+        ModelAndView mv = new ModelAndView("admin/catalogo");
         mv.addObject("produtos", produtos);
         return mv;
     }

@@ -27,3 +27,15 @@ document.querySelector('#search-icon').onclick = () => {
 
 function setTwoNumberDecimal(event) {
     this.value = parseDouble(this.value).toFixed(2);
+}
+
+
+        var slider = document.getElementById("myRange");
+        var output = document.getElementById("demo");
+        output.innerHTML = slider.value / 2;
+
+        slider.oninput = function() {
+            output.innerHTML = this.value / 2;
+        }
+
+
