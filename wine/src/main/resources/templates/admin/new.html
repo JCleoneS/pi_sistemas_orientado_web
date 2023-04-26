@@ -7,25 +7,37 @@
     <form th:object="${requisicaoNovoUsuarioDTO}" action="/usuarios" method="POST">
         <div class="form-group">
             <label class="form-label">CPF</label>
-            <input id="cpf" class="form-control" th:errorclass="is-invalid" type="text" th:field="*{cpf}">
+            <input id="cpf" class="form-control" th:errorclass="is-invalid" type="text" placeholder="CPF Válido" th:field="*{cpf}">
             <div class="invalid-feedback" th:errors="*{cpf}"></div>
         </div>
         <div class="form-group">
             <label class="form-label">E-mail</label>
-            <input class="form-control" th:errorclass="is-invalid" type="text" th:field="*{email}">
+            <input class="form-control" th:errorclass="is-invalid" type="text" placeholder="Email" maxlength="100" required th:field="*{email}">
             <div class="invalid-feedback" th:errors="*{email}"></div>
         </div>
         <div class="form-group">
             <label class="form-label">Nome</label>
-            <input class="form-control" th:errorclass="is-invalid" type="text" th:field="*{nome}">
+            <input class="form-control" th:errorclass="is-invalid" type="text" placeholder="Nome" maxlength="100" required th:field="*{nome}">
             <div class="invalid-feedback" th:errors="*{nome}"></div>
         </div>
         <div class="form-group">
             <label class="form-label">Senha</label>
             <div class="input-group">
-                <input type="password" class="form-control" th:errorclass="is-invalid" th:field="*{senha}">
+                <input type="password" class="form-control" th:errorclass="is-invalid" id="password" placeholder="Senha" minlength="4" th:field="*{senha}">
                 <div class="input-group-append">
                     <button class="btn btn-outline-secondary" type="button" id="show-password-toggle">
+                        <span class="fa fa-eye-slash"></span>
+                    </button>
+                </div>
+            </div>
+            <div class="invalid-feedback" th:errors="*{senha}"></div>
+        </div>
+        <div class="form-group">
+            <label class="form-label">Repita a Senha</label>
+            <div class="input-group">
+                <input type="password" class="form-control" th:errorclass="is-invalid" id="confirm_password" placeholder="Repita a Senha" minlength="4" th:field="*{senha}">
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" type="button" id="show-confirm-password-toggle" >
                         <span class="fa fa-eye-slash"></span>
                     </button>
                 </div>
@@ -44,6 +56,8 @@
 </div>
 <script>
   const togglePassword = document.querySelector('#show-password-toggle');
+  const toggleConfirmPassword = document.querySelector('#show-confirm-password-toggle');
+  const confirmPasswordInput = document.querySelector('input[type="password"]');
   const passwordInput = document.querySelector('input[type="password"]');
 
   togglePassword.addEventListener('click', function (e) {
@@ -55,6 +69,20 @@
     this.querySelector('.fa').classList.toggle('fa-eye-slash');
     this.querySelector('.fa').classList.toggle('fa-eye');
   });
+
+  var password = document.getElementById("password")
+  , confirm_password = document.getElementById("confirm_password");
+
+function validatePassword(){
+  if(password.value != confirm_password.value) {
+    confirm_password.setCustomValidity("Senhas diferentes!");
+  } else {
+    confirm_password.setCustomValidity('');
+  }
+}
+
+password.onchange = validatePassword;
+confirm_password.onkeyup = validatePassword;
 </script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.6/jquery.inputmask.min.js"></script>
