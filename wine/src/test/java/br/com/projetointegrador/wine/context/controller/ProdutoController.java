@@ -78,22 +78,12 @@ public class ProdutoController {
     }
 
     @GetMapping("/{codigo}/inativar")
-    public ModelAndView inativar(Produto requisicao) {
-        List<Produto> produtos = produtoRepository.findAll();
-        boolean contemProdutoAtivo = false;
-        for (Produto produto : produtos) {
-            if(!requisicao.getCodigo().equals(produto.getCodigo()) && produto.getSituacao().equals(Situacao.ATIVO)) {
-                contemProdutoAtivo = true;
-                break;
-            }
-        }
-        if (contemProdutoAtivo) {
-            Optional<Produto> optional = produtoRepository.findById(requisicao.getCodigo());
-            if (optional.isPresent()) {
-                Produto produto = optional.get();
-                produto.setSituacao(Situacao.INATIVO);
-                produtoRepository.save(produto);
-            }
+    public ModelAndView inativar(@PathVariable Long codigo) {
+        Optional<Produto> optional = produtoRepository.findById(codigo);
+        if (optional.isPresent()) {
+            Produto produto = optional.get();
+            produto.setSituacao(Situacao.INATIVO);
+            produtoRepository.save(produto);
         }
         ModelAndView mv = new ModelAndView("admin/indexProduto");
         mv.addObject("produtos", produtoRepository.findAll());
