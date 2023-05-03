@@ -42,17 +42,17 @@
                         <form th:if="${usuario.situacao.toString() == 'ATIVO'}"
                               action="#" th:action="@{/usuarios/__${usuario.id}__/inativar}" method="get"
                               onsubmit="return confirm('Tem certeza que deseja inativar o usuário?')">
-                            <button type="submit" class="btn btn-link">Inativar</button>
+                            <button type="submit" class="btn btn">Inativar</button>
                         </form>
                         <form th:if="${usuario.situacao.toString() == 'INATIVO'}"
                               action="#" th:action="@{/usuarios/__${usuario.id}__/ativar}" method="get"
                               onsubmit="return confirm('Tem certeza que deseja ativar o usuário?')">
-                            <button type="submit" class="btn btn-link">Ativar</button>
+                            <button type="submit" class="btn btn">Ativar</button>
                         </form>
                     </td>
                     <td class="col-1">
                         <form action="#" th:action="@{/usuarios/__${usuario.id}__/editar}" method="get">
-                            <button type="submit" class="btn btn-link">Editar</button>
+                            <button type="submit" class="btn btn">Editar</button>
                         </form>
                     </td>
                 </tr>
@@ -62,7 +62,7 @@
     </div>
     <div class="row">
         <form action="#" th:action="@{usuarios/new}" method="get">
-            <button type="submit" class="btn btn-link">Novo usuário</button>
+            <button type="submit" class="btn btn">+</button>
         </form>
     </div>
 </div>

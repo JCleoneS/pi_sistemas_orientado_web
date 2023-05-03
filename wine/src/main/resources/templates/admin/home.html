@@ -1,30 +1,25 @@
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{/admin/fragmentos :: head}"></head>
-<body>
+<link rel="stylesheet" href="/admin/css/style.css">
 <header th:replace="~{/admin/fragmentos :: header}"></header>
-
-<section class="home" id="home">
-  <div class="home-text" th:object="${usuarios}">
-    <h1>Bem Vindo:</h1>
-<!--    <h2 th:text="${usuario.grupo.toString()}">#</h2>-->
-<!--    <h2 th:text="${usuario.nome}">#</h2>-->
+<section class="home1" id="home">
+  <div class="home1-text" th:object="${usuarios}">
+    <!--    <h2 th:text="${usuario.grupo.toString()}">#</h2>-->
+    <!--    <h2 th:text="${usuario.nome}">#</h2>-->
   </div>
-</section>
-
-<section class="card-group produtos">
-  <div class="card produtos-container box" style="width: 18rem;">
-    <img th:src="@{/admin/images/avatar.png}" class="card-img-top" alt="...">
+  <div class="container-ger">
+    <img th:src="@{/admin/images/ger-produto.png}" class="card-img" alt="..." style="width: 15rem">
     <div class="card-body">
-      <a href="/usuarios" class="btn btn-primary">Gerenciamento de Usuarios</a>
+          <a href="/produtos" class="btn btn-primary">Gerenciamento de Produtos</a>
+      </div>
+      <div class="container-ger">
+        <img th:src="@{/admin/images/ger-usuario.png}" class="card-img" alt="..." style="width: 15rem">
+        <div class="card-body">
+          <a href="/usuarios" class="btn btn-primary">Gerenciamento de Usuarios</a>
+        </div>
+      </div>
     </div>
-  </div>
-  <div class="card produtos-container box" style="width: 18rem;">
-    <img th:src="@{/admin/images/P7.png}" class="card-img-top" alt="...">
-    <div class="card-body">
-      <a href="/produtos" class="btn btn-primary">Gerenciamento de Produtos</a>
     </div>
   </div>
 </section>
-</body>
-</html>

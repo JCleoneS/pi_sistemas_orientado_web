@@ -23,6 +23,7 @@
           <img th:src="@{/admin/images/P7.png}" class="card-img-top" alt="" />
           <a  class="stretched-link" th:href="@{/produtos/__${produto.codigo}__/produto-detail}" method="get"></a>
           <div class="card-body">
+            <img th:src="@{/admin/images/sobre.jpg}" alt="">
             <div class="d-flex justify-content-between">
               <p class="small"><a href="#!" class="text-muted" th:text="${produto.tipo.toString()}">#</a></p>
             </div>
