@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Produtos</title>
+</head>
+<body>
+<h1>Produtos</h1>
+<table>
+    <tr>
+        <th>Código</th>
+        <th>Nome</th>
+        <th>Tipo</th>
+        <th>Descrição</th>
+        <th>Avaliação</th>
+        <th>Preço</th>
+        <th>Quantidade</th>
+        <th>Situação</th>
+        <th>Opções</th>
+    </tr>
+    <tr th:each="produto : ${produtos}">
+        <td th:text="${produto.codigo}"></td>
+        <td th:text="${produto.nome}"></td>
+        <td th:text="${produto.tipo}"></td>
+        <td th:text="${produto.descricao}"></td>
+        <td th:text="${produto.avaliacao}"></td>
+        <td th:text="${produto.preco}"></td>
+        <td th:text="${produto.quantidade}"></td>
+        <td th:text="${produto.situacao}"></td>
+        <td>
+            <a th:href="@{/produtos/{codigo}/edit(codigo=${produto.codigo})}">Editar</a>
+            <a th:href="@{/produtos/{codigo}/inativar(codigo=${produto.codigo})}" th:if="${produto.situacao == 'ATIVO'}">Inativar</a>
+            <a th:href="@{/produtos/{codigo}/ativar(codigo=${produto.codigo})}" th:if="${produto.situacao == 'INATIVO'}">Ativar</a>
+        </td>
+    </tr>
+</table>
+<div>
+    <span>Página atual: <span th:text="${paginaAtual}+1"></span></span>
+    <br>
+    <span>Total de páginas: <span th:text="${totalPaginas}"></span></span>

@@ -1,5 +1,5 @@
 package br.com.projetointegrador.wine.context.model;
 
 public enum Grupo {
-    ADMIN, ESTOQUISTA
+    ADMIN, ESTOQUISTA, CLIENTE
 }

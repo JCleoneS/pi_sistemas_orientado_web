@@ -11,6 +11,10 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import java.util.List;
 import java.util.Optional;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.PageRequest;
+
 
 @Controller
 @RequestMapping(value = "/produtos")
@@ -20,18 +24,35 @@ public class ProdutoController {
     private ProdutoRepository produtoRepository;
 
     @GetMapping("")
-    public ModelAndView prdIndex(){
-        List<Produto> produtos = produtoRepository.findAll();
+    public ModelAndView prdIndex(@RequestParam(defaultValue = "0") int pagina){
+        Pageable pageable = PageRequest.of(pagina, 100);
+        Page<Produto> produtos = produtoRepository.findAll(pageable);
         ModelAndView mv = new ModelAndView("admin/indexProduto");
-        mv.addObject("produtos", produtos);
+        mv.addObject("produtos", produtos.getContent());
+        mv.addObject("paginaAtual", pagina);
+        mv.addObject("totalPaginas", produtos.getTotalPages());
         return mv;
     }
 
     @GetMapping("/catalogo")
-    public ModelAndView prdCatalogo(){
-        List<Produto> produtos = produtoRepository.findAll();
+    public ModelAndView prdCatalogo(@RequestParam(defaultValue = "0") int pagina){
+        Pageable pageable = PageRequest.of(pagina, 10);
+        Page<Produto> produtos = produtoRepository.findAll(pageable);
         ModelAndView mv = new ModelAndView("admin/catalogo");
-        mv.addObject("produtos", produtos);
+        mv.addObject("produtos", produtos.getContent());
+        mv.addObject("paginaAtual", pagina);
+        mv.addObject("totalPaginas", produtos.getTotalPages());
+        return mv;
+    }
+
+    @GetMapping("/paginado")
+    public ModelAndView prdPaginado(@RequestParam(defaultValue = "0") int pagina){
+        Pageable pageable = PageRequest.of(pagina, 10);
+        Page<Produto> produtos = produtoRepository.findAll(pageable);
+        ModelAndView mv = new ModelAndView("admin/paginado");
+        mv.addObject("produtos", produtos.getContent());
+        mv.addObject("paginaAtual", pagina);
+        mv.addObject("totalPaginas", produtos.getTotalPages());
         return mv;
     }
 
