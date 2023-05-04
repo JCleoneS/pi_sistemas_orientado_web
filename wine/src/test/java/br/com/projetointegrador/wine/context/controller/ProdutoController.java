@@ -5,6 +5,7 @@ import br.com.projetointegrador.wine.context.model.*;
 import br.com.projetointegrador.wine.context.repository.ProdutoRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -24,8 +25,8 @@ public class ProdutoController {
     private ProdutoRepository produtoRepository;
 
     @GetMapping("")
-    public ModelAndView prdIndex(@RequestParam(defaultValue = "0") int pagina){
-        Pageable pageable = PageRequest.of(pagina, 100);
+    public ModelAndView prdIndex(@RequestParam(defaultValue = "0") int pagina) {
+        Pageable pageable = PageRequest.of(pagina, 100, Sort.by("codigo").descending());
         Page<Produto> produtos = produtoRepository.findAll(pageable);
         ModelAndView mv = new ModelAndView("admin/indexProduto");
         mv.addObject("produtos", produtos.getContent());
