@@ -129,7 +129,7 @@ public class UsuarioController {
             usuario.setCpf(requisicao.getCpf());
             usuario.setEmail(requisicao.getEmail());
             usuario.setGrupo(requisicao.getGrupo());
-            String senhaCriptada = CriptografiaUtils.criptografar(usuario.getSenha());
+            String senhaCriptada = CriptografiaUtils.criptografar(requisicao.getSenha());
             usuario.setSenha(senhaCriptada);
             usuario.setSituacao(requisicao.getSituacao());
             usuarioRepository.save(usuario);
