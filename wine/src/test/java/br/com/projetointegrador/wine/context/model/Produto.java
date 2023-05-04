@@ -1,6 +1,9 @@
 package br.com.projetointegrador.wine.context.model;
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 public class Produto {
 
@@ -29,6 +32,9 @@ public class Produto {
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private Situacao situacao;
+
+    @OneToMany(mappedBy = "produto", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ImagemProduto> imagens = new ArrayList<>();
 
     public Produto(){ }
 
@@ -84,4 +90,11 @@ public class Produto {
 
     public void setSituacao(Situacao situacao) {this.situacao = situacao;}
 
+    public List<ImagemProduto> getImagens() {
+        return imagens;
+    }
+
+    public void setImagens(List<ImagemProduto> imagens) {
+        this.imagens = imagens;
+    }
 }

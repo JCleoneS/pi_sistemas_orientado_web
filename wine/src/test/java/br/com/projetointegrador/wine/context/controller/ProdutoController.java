@@ -8,7 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.io.IOException;
+import java.util.Base64;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.data.domain.Page;
@@ -65,7 +69,7 @@ public class ProdutoController {
     }
 
     @PostMapping("")
-    public ModelAndView create(@Valid RequisicaoNovoProdutoDTO requisicao, BindingResult result){
+    public ModelAndView create(@Valid RequisicaoNovoProdutoDTO requisicao, BindingResult result, @RequestParam("imagens") List<MultipartFile> arquivos) throws IOException {
         if(result.hasErrors()){
             ModelAndView mv = new ModelAndView("admin/novo-produto");
             mv.addObject("categorias", Categoria.values());
@@ -73,6 +77,14 @@ public class ProdutoController {
         }
         Produto produto = requisicao.toProduto();
         produto.setSituacao(Situacao.ATIVO);
+        for (MultipartFile arquivo : arquivos) {
+            ImagemProduto imagemProduto = new ImagemProduto();
+            byte[] bytes = arquivo.getBytes();
+            String base64 = Base64.getEncoder().encodeToString(bytes);
+            imagemProduto.setBase64(base64);
+            imagemProduto.setProduto(produto);
+            produto.getImagens().add(imagemProduto);
+        }
         produtoRepository.save(produto);
         return new ModelAndView("redirect:/produtos");
     }
@@ -200,7 +212,7 @@ public class ProdutoController {
             mv.addObject("avaliacao", produto.getAvaliacao());
             mv.addObject("descricao", produto.getDescricao());
             mv.addObject("preco", produto.getPreco());
-
+            mv.addObject("imagens", produto.getImagens());
             return mv;
         }
         //não achou um registro na tabela usuario com o id informado

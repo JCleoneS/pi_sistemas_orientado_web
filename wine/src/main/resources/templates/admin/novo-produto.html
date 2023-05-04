@@ -4,7 +4,7 @@
 <body>
 <header th:replace="~{/admin/fragmentos :: header}"></header>
 <div class="container">
-    <form th:object="${requisicaoNovoProdutoDTO}" action="/produtos" method="POST">
+    <form th:object="${requisicaoNovoProdutoDTO}" action="/produtos" method="POST" enctype="multipart/form-data">
         <div class="form-group">
             <label class="form-label">Nome</label>
             <input class="form-control" th:errorclass="is-invalid" type="text" min="0" max="200" th:field="*{nome}">
@@ -40,9 +40,8 @@
             <div class="invalid-feedback" th:errors="*{preco}"></div>
         </div>
         <div class="form-group">
-            <label class="form-label">Imagens</label>
-            <input class="form-control" type="file" name="imagens" multiple>
-            <div class="invalid-feedback"></div>
+            <label for="imagens">Imagens</label>
+            <input type="file" class="form-control-file" id="imagens" name="imagens" multiple>
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>

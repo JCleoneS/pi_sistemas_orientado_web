@@ -7,17 +7,24 @@
           integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <link rel="stylesheet" href="/admin/css/style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
-
+    <style>
+        .imagem-produto {
+             width: 300px;
+             height: 200px;
+        }
+    </style>
 </head>
 <body>
 <header th:replace="~{/admin/fragmentos :: header}"></header>
 <section>
 <div class="container">
     <div class="card" th:object="${produto}"  th:action="@{/produtos/{produtoCod}(produtoCod = ${produto.codigo})}" method="GET">
+        <div th:each="imagem : ${imagens}">
+            <img class="imagem-produto" th:src="'data:image/png;base64,' + ${imagem.base64}" />
+        </div>
         <div class="container-fliud">
             <div class="wrapper row">
                 <div class="preview col-md-6">
-
                     <div class="preview-pic tab-content">
                         <div class="tab-pane active" id="pic-1"><img th:src="@{/admin/images/P7.png}" /></div>
                         <div class="tab-pane" id="pic-2"><img th:src="@{/admin/images/P7.png}" /></div>
@@ -32,7 +39,6 @@
                         <li><a data-target="#pic-4" data-toggle="tab"><img src="http://placekitten.com/200/126" /></a></li>
                         <li><a data-target="#pic-5" data-toggle="tab"><img src="http://placekitten.com/200/126" /></a></li>
                     </ul>
-
                 </div>
                 <div class="details col-md-6">
                     <h3 class="product-title" th:text="${nome}">#</h3>
@@ -42,13 +48,6 @@
                             <input type="range" min="0" max="10" value="0" class="stars" id="myRange" th:value="${avaliacao}">
                             <span class="rating-value" id="demo"></span>
                         </div>
-<!--                        <div class="stars">-->
-<!--                            <span class="fa fa-star checked"></span>-->
-<!--                            <span class="fa fa-star checked"></span>-->
-<!--                            <span class="fa fa-star checked"></span>-->
-<!--                            <span class="fa fa-star"></span>-->
-<!--                            <span class="fa fa-star"></span>-->
-<!--                        </div>-->
                         <span class="review-no">41 avaliações</span>
                     </div>
                     <p class="product-description" th:text="${descricao}">#</p>
