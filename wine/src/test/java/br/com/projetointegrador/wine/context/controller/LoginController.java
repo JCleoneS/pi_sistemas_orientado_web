@@ -36,9 +36,16 @@ public class LoginController {
         if (usuarioDoBanco.size() > 0) {
             String senhaDoBanco = usuarioDoBanco.get(0).getSenha();
             if (senhaDoBanco.equals(senhaDaRequisicao)) {
-                return new ModelAndView("/admin/home");
+                Usuario usuarioAutenticado = usuarioDoBanco.get(0);
+                if (usuarioAutenticado.getGrupo().toString().contains("ADMIN")) {
+                    return new ModelAndView("/admin/home");
+                } else if (usuarioAutenticado.getGrupo().toString().contains("ESTOQUISTA")) {
+                    return new ModelAndView("/admin/estoquistaHome");
+                }
             }
         }
+
         return new ModelAndView("redirect:/loginAdministrativo");
     }
+
 }

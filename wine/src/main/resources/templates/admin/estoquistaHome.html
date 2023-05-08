@@ -1,0 +1,19 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{/admin/visaoEstoquista :: head}"></head>
+<link rel="stylesheet" href="/admin/css/style.css">
+<header th:replace="~{/admin/visaoEstoquista :: header}"></header>
+<section class="home1" id="home">
+    <div class="home1-text" th:object="${usuarios}">
+        <!--    <h2 th:text="${usuario.grupo.toString()}">#</h2>-->
+        <!--    <h2 th:text="${usuario.nome}">#</h2>-->
+    </div>
+    <div class="container-ger">
+        <img th:src="@{/admin/images/ger-produto.png}" class="card-img" alt="..." style="width: 15rem">
+        <div class="card-body">
+            <a href="/produtos" class="btn btn-primary">Lista de produtos</a>
+        </div>
+    </div>
+    </div>
+    </div>
+</section>
