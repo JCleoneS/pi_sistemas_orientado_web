@@ -1,13 +1,13 @@
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{/admin/fragmentos :: head}"></head>
+<head th:replace="~{/admin/visaoEstoquista :: head}"></head>
 <body>
-<header th:replace="~{/admin/fragmentos :: header}"></header>
+<header th:replace="~{/admin/visaoEstoquista :: header}"></header>
 <div class="container">
   <div class="row">
   </div>
   <div class="row">
-    <form action="#" th:action="@{/produtos/buscar}" method="get">
+    <form action="#" th:action="@{/produtosEstoquista/buscar}" method="get">
       <div class="input-group">
         <input type="text" class="form-control" placeholder="Pesquisar produto por nome" name="nome">
         <div class="input-group-append">
@@ -22,14 +22,6 @@
           <th scope="col">COD</th>
           <th scope="col">Nome</th>
           <th scope="col">Qtde</th>
-          <th scope="col">Tipo</th>
-          <th scope="col">PreçoR$</th>
-          <th scope="col">Situação</th>
-     <!-- <th scope="col">Avaliação</th>
-          <th scope="col">Descrição</th>-->
-          <th scope="col"></th>
-          <th scope="col"></th>
-          <th scope="col"></th>
         </tr>
         </thead>
         <tbody>
@@ -37,45 +29,26 @@
           <th class="col-1" scope="row" th:text="${produto.getCodigo()}">#</th>
           <td class="col-2" th:text="${produto.nome}">#</td>
           <td class="col-3" th:text="${produto.quantidade}">#</td>
-          <td class="col-4" th:text="${produto.tipo.toString()}">#</td>
-          <td class="col-5" th:text="${produto.preco}">#</td>
-          <td class="col-6" th:text="${produto.situacao}">#</td>
-<!--          <td class="col-2" th:text="${produto.descricao}">#</td>-->
           <td class="col-1">
-            <form th:if="${produto.situacao.toString() == 'ATIVO'}"
-                  action="#" th:action="@{/produtos/__${produto.codigo}__/inativar}" method="get"
-                  onsubmit="return confirm('Tem certeza que deseja inativar o produto?')">
-              <button type="submit" class="btn btn-link">Inativar</button>
-            </form>
-            <form th:if="${produto.situacao.toString() == 'INATIVO'}"
-                  action="#" th:action="@{/produtos/__${produto.codigo}__/ativar}" method="get"
-                  onsubmit="return confirm('Tem certeza que deseja ativar o produto?')">
-              <button type="submit" class="btn btn">Ativar</button>
-            </form>
           </td>
           <td class="col-1">
-            <form action="#" th:action="@{/produtos/__${produto.codigo}__/edit}" method="get">
+            <form action="#" th:action="@{/produtosEstoquista/__${produto.codigo}__/editProdutoEstoquista}" method="get">
               <button type="submit" class="btn btn">Alterar</button>
             </form>
           </td>
           </td>
           <td class="col-1">
-            <form action="#" th:action="@{/produtos/__${produto.codigo}__/produto-detail}" method="get">
+            <form action="#" th:action="@{/produtosEstoquista/__${produto.codigo}__/produto-detail}" method="get">
               <button type="submit" class="btn btn">Visualizar</button>
             </form>
           </td>
           <td class="col-1">
         </tr>
         </tbody>
-        <!--    Nome, email, status, Grupo-->
       </table>
     </div>
   </div>
   <div class="row">
-    <!--    <a href="/produtos/novo-produto">Novo produto</a>-->
-    <form action="#" th:action="@{/produtos/novo-produto}" method="get">
-      <button type="submit" class="btn btn">+</button>
-    </form>
   </div>
 </div>
 </body>
