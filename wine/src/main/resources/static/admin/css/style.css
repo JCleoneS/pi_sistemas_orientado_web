@@ -76,7 +76,7 @@ color:#B40D46;
     cursor: pointer;
     display: none;
 }
-.header-icon{
+.search-icon{
     font-size: 20px;
     cursor: pointer;
     z-index: 1000;
@@ -85,7 +85,7 @@ color:#B40D46;
     align-items: center;
 
 }
-.header-icon  .bx {
+.search-icon  .bx {
  color: var(--bg-color);
  padding: 7px;
  background: var(--main-color);
@@ -93,13 +93,13 @@ color:#B40D46;
 
 
 }
-.header-icon  .bx:hover{
+.search-icon  .bx:hover{
     background-color:#B40D46;
 }
-.header-icon i{
+.search-icon i{
     position: relative;
 }
-.header-icon span{
+.search-icon span{
     position: absolute;
     top: -7px;
     right: -7px;
@@ -116,7 +116,6 @@ color:#B40D46;
 }
 .search-box{
     position: absolute;
-    top: 110%;
     right: -100%;
     background: var(--bg-color);
     width: 280px;
@@ -465,5 +464,7 @@ color: var(--bg-color);
    }
    product-title h6{
    color: #7C072F;
+   }
+   rating-slider span{
    }
 
