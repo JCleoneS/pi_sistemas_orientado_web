@@ -16,7 +16,54 @@
 </head>
 <body>
 <header th:replace="~{/admin/fragmentos :: header}"></header>
-<section>
+<main>
+    <div>
+        <div class="container">
+            <div class="letf-side">
+                <div class="items">
+                    <div class="select-image">
+                        <img th:src="@{/admin/images/produto_1.jpg}" alt="">
+                    </div>
+                </div>
+                <div class="thumbail">
+                    <div class="thumbail">
+                        <img th:src="@{/admin/images/produto_thu_1.jpg}" alt="">
+                    </div>
+                    <div class="thumbail">
+                        <img th:src="@{/admin/images/produto_thu_2.jpg}" alt="">
+                    </div>
+                    <div class="thumbail">
+                        <img th:src="@{/admin/images/produto_thu_3.jpg}" alt="">
+                    </div>
+                    <div class="thumbail">
+                        <img th:src="@{/admin/images/produto_thu_4.jpg}" alt="">
+                    </div>
+                </div>
+            </div>
+            <div class="right-side">
+                <h6 class="product-title" th:text="${nome}">#</h6>
+                <h8 class="product-title" th:text="${produto.tipo.toString()}">#</h8>
+                <div class="rating">
+                    <div class="rating-slider">
+                        <input type="range" min="0" max="10" value="0" class="stars" id="myRange" th:value="${avaliacao}">
+                        <span class="rating-value" id="demo"></span>
+                    </div>
+                    <span class="review-no">41 avaliações</span>
+                </div>
+                <p class="product-description" th:text="${descricao}">#</p>
+                <h4 class="price">Preço R$ <span th:text="${preco}">#</span></h4>
+                <p class="vote"><strong>91%</strong> dos clientes recomendam este produto! <strong>(87 votos)</strong></p>
+                <div class="action">
+                    <button class="add-to-cart btn btn-default" type="button">adicionar ao carrinho</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    </section>
+
+</main>
+</section>
+<!--<section>
 <div class="container">
     <div class="card" th:object="${produto}"  th:action="@{/produtos/{produtoCod}(produtoCod = ${produto.codigo})}" method="GET">
         <div th:each="imagem : ${imagens}">
@@ -61,7 +108,9 @@
         </div>
     </div>
 </div>
-</section>
+</section> -->
+
+
 <script>
         var slider = document.getElementById("myRange");
         var output = document.getElementById("demo");

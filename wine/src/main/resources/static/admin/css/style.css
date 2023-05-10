@@ -8,6 +8,9 @@
     scroll-padding: 4rem;
     list-style: none;
     text-decoration: none;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
 
     --main-color:#7C072F;
     --second-color:#ecfdf8;
@@ -415,3 +418,52 @@ color: var(--bg-color);
     container-grid: auto;
 
     }
+   .container{
+       display: flex;
+       justify-content: center;
+       align-items: center;
+       width: 100%;
+
+   }
+   .letf-side{
+       display: flex;
+       flex-direction: column;
+       width: 100%;
+
+   }
+   .items{
+       align-self: center;
+
+   }
+       .select-image{
+           max-width: 500px;
+       }
+       .select-image img{
+           width: 100%;
+           border-radius: 10px;
+       }
+       .thumbail{
+           display: flex;
+           justify-content: space-evenly;
+           max-width: 500px;
+           gap: 10px;
+           align-self: center;
+       }
+       .thumbail img{
+           width: 100%;
+           border-radius: 10px;
+
+
+       }
+   .right-side{
+       width: 100%;
+
+   }
+   right-side h6{
+   color: #7C072F;
+
+   }
+   product-title h6{
+   color: #7C072F;
+   }
+
