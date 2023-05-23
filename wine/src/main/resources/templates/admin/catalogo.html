@@ -20,10 +20,13 @@
           <div class="d-flex justify-content-between p-3">
             <p class="lead mb-0" th:text="${produto.nome}">#</p>
           </div>
-          <img th:src="@{/admin/images/P7.png}" class="card-img-top" alt="" />
+<!--          <img th:src="@{/admin/images/P7.png}" class="card-img-top" alt="" />-->
           <a  class="stretched-link" th:href="@{/produtos/__${produto.codigo}__/produto-detail}" method="get"></a>
           <div class="card-body">
-            <img th:src="@{/admin/images/produto_1.jpg}" alt="">
+            <div th:each="imagem : ${imagens}">
+<!--            <img th:src="@{/admin/images/produto_1.jpg}" alt="">-->
+            <img class="imagem-produto" th:src="'data:image/png;base64,' + ${imagem.base64}" >
+            </div>
             <div class="d-flex justify-content-between">
               <p class="small"><a href="#!" class="text-muted" th:text="${produto.tipo.toString()}">#</a></p>
             </div>

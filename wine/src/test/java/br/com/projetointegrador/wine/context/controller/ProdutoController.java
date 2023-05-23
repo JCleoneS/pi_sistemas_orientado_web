@@ -143,10 +143,19 @@ public class ProdutoController {
 
         if (optional.isPresent()){
             Produto produto = optional.get();
+            RequisicaoEditarProdutoDTO requisicaoEditarProdutoDTO = new RequisicaoEditarProdutoDTO();
+            requisicaoEditarProdutoDTO.setCodigo(produto.getCodigo());
+            requisicaoEditarProdutoDTO.setNome(produto.getNome());
+            requisicaoEditarProdutoDTO.setTipo(produto.getTipo());
+            requisicaoEditarProdutoDTO.setDescricao(produto.getDescricao());
+            requisicaoEditarProdutoDTO.setAvaliacao(produto.getAvaliacao());
+            requisicaoEditarProdutoDTO.setPreco(produto.getPreco());
+            requisicaoEditarProdutoDTO.setQuantidade(produto.getQuantidade());
+            requisicaoEditarProdutoDTO.setSituacao(produto.getSituacao());
             ModelAndView mv = new ModelAndView("admin/edit-produto");
-            mv.addObject("produto", produto);
-            mv.addObject("produtoCod", produto.getCodigo());
+            mv.addObject("produto", requisicaoEditarProdutoDTO);
             mv.addObject("categorias", Categoria.values());
+            mv.addObject("situacoes", Situacao.values());
 
             return mv;
         }
