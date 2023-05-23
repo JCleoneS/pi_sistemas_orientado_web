@@ -79,14 +79,7 @@ public class ProdutoController_Estoquista {
         Optional<Produto> produtoOptional = produtoRepository.findById(requisicao.getCodigo());
         if (produtoOptional.isPresent()) {
             Produto produto = produtoOptional.get();
-            produto.setCodigo(requisicao.getCodigo());
-            produto.setNome(requisicao.getNome());
-            produto.setTipo(requisicao.getTipo());
-            produto.setDescricao(requisicao.getDescricao());
-            produto.setAvaliacao(requisicao.getAvaliacao());
-            produto.setPreco(requisicao.getPreco());
             produto.setQuantidade(requisicao.getQuantidade());
-            produto.setSituacao(requisicao.getSituacao());
             produtoRepository.save(produto);
             return new ModelAndView("redirect:/produtosEstoquista");
         }
