@@ -65,6 +65,7 @@ public class ProdutoController_Estoquista {
             ModelAndView mv = new ModelAndView("admin/editProdutoEstoquista");
             mv.addObject("produto", requisicaoEditarProdutoDTO);
             mv.addObject("categorias", Categoria.values());
+            mv.addObject("situacoes", Situacao.values());
             return mv;
         } else {
             System.out.println("Não achou o produto de código: " + codigo);

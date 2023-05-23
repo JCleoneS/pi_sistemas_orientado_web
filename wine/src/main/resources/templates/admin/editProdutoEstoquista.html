@@ -4,15 +4,20 @@
 <body>
 <header th:replace="~{/admin/visaoEstoquista :: header}"></header>
 <div class="container">
-  <form th:object="${requisicaoNovoProdutoDTO}"  th:action="@{/produtosEstoquista/{produtoCod}(produtoCod = ${produto.codigo})}" method="POST">
+  <form th:object="${produto}"  th:action="@{/produtosEstoquista/editProdutoEstoquista}" method="POST">
+    <div class="form-group">
+      <label class="form-label">Codigo</label>
+      <input class="form-control" th:errorclass="is-invalid" type="text" th:field="*{codigo}">
+      <div class="invalid-feedback" th:errors="*{nome}"></div>
+    </div>
     <div class="form-group">
       <label class="form-label">Nome</label>
-      <input class="form-control" th:errorclass="is-invalid" type="text" min="0" max="200" th:field="*{nome}" disabled>
+      <input class="form-control" th:errorclass="is-invalid" type="text" min="0" max="200" th:field="*{nome}">
       <div class="invalid-feedback" th:errors="*{nome}"></div>
     </div>
     <div class="form-group">
       <label class="form-label">Tipo</label>
-      <select class="form-select" th:field="*{tipo}" disabled>
+      <select class="form-select" th:field="*{tipo}">
         <option th:each="tipo : ${categorias}" th:value="${tipo}" th:text="${tipo}"></option>
       </select>
       <div class="invalid-feedback"></div>
@@ -20,13 +25,13 @@
     <div class="form-group">
       <label class="form-label">Avaliação</label>
       <div class="rating-slider">
-        <input type="range" min="0" max="10" value="0" class="slider" id="myRange" th:field="*{avaliacao}" disabled>
+        <input type="range" min="0" max="10" value="0" class="slider" id="myRange" th:field="*{avaliacao}">
         <span class="rating-value" id="demo"></span>
       </div>
     </div>
     <div class="form-group">
       <label class="form-label">Descricao</label>
-      <textarea class="form-control" th:errorclass="is-invalid" rows="5" type="text" min="0" max="2000" th:field="*{descricao}" disabled></textarea>
+      <textarea class="form-control" th:errorclass="is-invalid" rows="5" type="text" min="0" max="2000" th:field="*{descricao}"></textarea>
       <div class="invalid-feedback" th:errors="*{descricao}"></div>
     </div>
     <div class="form-group">
@@ -36,12 +41,19 @@
     </div>
     <div class="form-group">
       <label class="form-label">Preco</label>
-      <input class="form-control" th:errorclass="is-invalid" type="number" name="preco" onchange="setTwoNumberDecimal" min="0" max="1000" step="0.1" value="0.00" th:field="*{preco}" disabled>
+      <input class="form-control" th:errorclass="is-invalid" type="number" name="preco" onchange="setTwoNumberDecimal" min="0" max="1000" step="0.1" value="0.00" th:field="*{preco}">
       <div class="invalid-feedback" th:errors="*{preco}"></div>
     </div>
     <div class="form-group">
+      <label class="form-label">Situação</label>
+      <select class="form-select" th:field="*{situacao}">
+        <option th:each="situacao : ${situacoes}" th:value="${situacao}" th:text="${situacao}"></option>
+      </select>
+      <div class="invalid-feedback"></div>
+    </div>
+    <div class="form-group">
       <label class="form-label">Imagens</label>
-      <input class="form-control" type="file" name="imagens" multiple disabled>
+      <input class="form-control" type="file" name="imagens" multiple>
       <div class="invalid-feedback"></div>
     </div>
     <button type="submit" class="btn btn-primary">Submit</button>
