@@ -8,6 +8,7 @@ public class ImagemProduto {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Lob
     @Column(name = "base64", columnDefinition = "BLOB")
     private String base64;
 

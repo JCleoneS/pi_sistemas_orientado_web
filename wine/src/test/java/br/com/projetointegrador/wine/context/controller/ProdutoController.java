@@ -13,6 +13,9 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Base64;
 import java.util.List;
 import java.util.Optional;
@@ -24,6 +27,7 @@ import org.springframework.data.domain.PageRequest;
 @Controller
 @RequestMapping(value = "/produtos")
 public class ProdutoController {
+    public static String uploadDir = System.getProperty("user.dir") + "/src/main/resources/static/admin/images";
 
     @Autowired
     private ProdutoRepository produtoRepository;
@@ -78,6 +82,18 @@ public class ProdutoController {
         }
         Produto produto = requisicao.toProduto();
         produto.setSituacao(Situacao.ATIVO);
+//        String imageUUID;
+//        for (MultipartFile arquivo : arquivos) {
+//            if (!arquivos.isEmpty()) {
+//                imageUUID = arquivo.getOriginalFilename();
+//                Path fileNameAndPath = Paths.get(uploadDir, imageUUID);
+//                Files.write(fileNameAndPath, arquivo.getBytes());
+//            }else{
+//                imageUUID = imgName;
+//            }
+//            ImagemProduto.setBase64(imageUUID);
+//            produtoRepository.save(produto);
+//        }
         for (MultipartFile arquivo : arquivos) {
             ImagemProduto imagemProduto = new ImagemProduto();
             byte[] bytes = arquivo.getBytes();
@@ -167,7 +183,7 @@ public class ProdutoController {
     }
 
     @PostMapping("/edit")
-    public ModelAndView editar(@Valid RequisicaoEditarProdutoDTO requisicao) {
+    public ModelAndView editar(@Valid RequisicaoEditarProdutoDTO requisicao,BindingResult result, @RequestParam("imagens") List<MultipartFile> arquivos) throws IOException {
         Optional<Produto> produtoOptional = produtoRepository.findById(requisicao.getCodigo());
         if (produtoOptional.isPresent()) {
             Produto produto = produtoOptional.get();
@@ -179,6 +195,15 @@ public class ProdutoController {
             produto.setPreco(requisicao.getPreco());
             produto.setQuantidade(requisicao.getQuantidade());
             produto.setSituacao(requisicao.getSituacao());
+//            produto.setImagens(requisicao.getImagens());
+//            for (MultipartFile arquivo : arquivos) {
+//                ImagemProduto imagemProduto = new ImagemProduto();
+//                byte[] bytes = arquivo.getBytes();
+//                String base64 = Base64.getEncoder().encodeToString(bytes);
+//                imagemProduto.setBase64(base64);
+//                imagemProduto.setProduto(produto);
+//                produto.getImagens().add(imagemProduto);
+//            }
             produtoRepository.save(produto);
             return new ModelAndView("redirect:/produtos");
         }
@@ -227,7 +252,7 @@ public class ProdutoController {
         }
         //não achou um registro na tabela usuario com o id informado
         else{
-            System.out.println("Nao achou o produto de codigo: "+codigo);
+            System.out.println("Nao achou o produto de codigo: " + codigo);
             return new ModelAndView("redirect:/produtos");
         }
     }
