@@ -1,0 +1,55 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragmentos :: head}"></head>
+<body>
+<header th:replace="~{fragmentos :: header}"></header>
+<section>
+  <div class="row">
+    <form action="#" th:action="@{/produtos/buscarCatalogo}" method="get">
+      <div class="input-group">
+        <input type="text" class="form-control" placeholder="Pesquisar produto por nome" name="nome">
+        <div class="input-group-append">
+          <button type="submit" class="btn btn-outline-secondary">Buscar</button>
+        </div>
+      </div>
+    </form>
+  <div class="container py-5">
+    <div class="row">
+      <div class="col-md-12 col-lg-4 mb-4 mb-lg-0" th:each="produto : ${produtos}">
+        <div class="card">
+          <div class="d-flex justify-content-between p-3">
+            <p class="lead mb-0" th:text="${produto.nome}">#</p>
+          </div>
+          <img th:src="@{/admin/images/P7.png}" class="card-img-top" alt="" />
+          <a  class="stretched-link" th:href="@{/produtos/__${produto.codigo}__/produto-detail}" method="get"></a>
+          <div class="card-body">
+            <div th:each="imagem : ${imagens}">
+            <img th:src="@{/admin/images/produto_1.jpg}" alt="">
+            </div>
+            <div class="d-flex justify-content-between">
+              <p class="small"><a href="#!" class="text-muted" th:text="${produto.tipo.toString()}">#</a></p>
+            </div>
+
+            <div class="d-flex justify-content-between mb-3">
+              <h5 class="text-dark mb-0">Preço R$: <span th:text="${produto.preco}"></span></h5>
+            </div>
+
+            <div class="d-flex justify-content-between mb-2">
+              <p class="text-muted mb-0" >Disponíveis: <span class="fw-bold" th:text="${produto.quantidade}">#</span></p>
+              <div class="ms-auto text-warning">
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+  </div>
+  </div>
+</section>
+</body>
+</html>
