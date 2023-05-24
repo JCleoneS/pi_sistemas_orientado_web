@@ -43,6 +43,10 @@ public class RequisicaoNovoProdutoDTO {
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private Situacao situacao;
+    @NotNull
+    @NotBlank
+    @Column(nullable = false)
+    private String imageName;
 
     public RequisicaoNovoProdutoDTO(){ }
 
@@ -99,6 +103,10 @@ public class RequisicaoNovoProdutoDTO {
     public Situacao getSituacao() {return situacao;}
 
     public void setSituacao(Situacao situacao) {this.situacao = situacao;}
+    public String getImageName() {return imageName;}
+    public void setImageName(String imageName) {
+        this.imageName = imageName;
+    }
 
 
     public Produto toProduto(){
