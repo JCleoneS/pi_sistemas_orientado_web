@@ -250,7 +250,6 @@ public class ProdutoController {
             mv.addObject("imagens", produto.getImagens());
             return mv;
         }
-        //não achou um registro na tabela usuario com o id informado
         else{
             System.out.println("Nao achou o produto de codigo: " + codigo);
             return new ModelAndView("redirect:/produtos");
